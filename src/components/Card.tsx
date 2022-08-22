@@ -1,6 +1,6 @@
 import { useState } from "react";
 import fetchData from "../services/fetchData";
-import renderNew from "../services/renderNew";
+// import renderNew from "../services/renderNew";
 
 export interface Props {
   key: string;
