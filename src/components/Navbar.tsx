@@ -40,10 +40,11 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
     <input
       type="search"
       className="search-input"
-      placeholder="What are you looking for?"
+      placeholder="  What are you looking for?"
       onChange={handleChange}
       value={inputData}
       onKeyDown={handleSubmit}
+      autoFocus
     />
   );
   const [isSearch, setIsSearch] = React.useState(true);
@@ -67,15 +68,15 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
           alt="search icon"
           className={
             isSearch
-              ? "btn--search btn--search-icon"
-              : "btn--search btn--enter-icon"
+              ? "btn--search btn--search-icon btn--navbar"
+              : "btn--search btn--enter-icon btn--navbar"
           }
           onClick={handleSearchClick}
         />
         <img
           src="./img/random-thin.svg"
           alt="random icon"
-          className="btn--random"
+          className="btn--random btn--navbar"
           onClick={randomClick}
         />
       </div>

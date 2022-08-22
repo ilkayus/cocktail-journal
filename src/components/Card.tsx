@@ -1,4 +1,6 @@
 import { useState } from "react";
+import fetchData from "../services/fetchData";
+import renderNew from "../services/renderNew";
 
 export interface Props {
   key: string;
@@ -27,20 +29,20 @@ const Card = ({
   setCocktailData,
   setPageNumber,
 }: Props) => {
-  const fetchData = async (fetchCategory: string, fetchId: string) => {
-    if (fetchId === undefined || fetchId === null || fetchId === "") return;
-    if (fetchId.includes("/")) fetchId = fetchId.replace("/", "+");
-    const response = await fetch(
-      `http://127.0.0.1:9000/api/v1/${fetchCategory}/${fetchId}`
-    );
-    const data = await response.json();
-    console.log("in category click  search: ", data);
-    setCocktailData(data.data.cocks);
-    setPageNumber(([prev, maxPrev]) => [
-      1,
-      Math.ceil(data.data.cocks.length / 3),
-    ]);
-  };
+  // const fetchData = async (fetchCategory: string, fetchId: string) => {
+  //   if (fetchId === undefined || fetchId === null || fetchId === "") return;
+  //   if (fetchId.includes("/")) fetchId = fetchId.replace("/", "+");
+  //   const response = await fetch(
+  //     `http://127.0.0.1:9000/api/v1/${fetchCategory}/${fetchId}`
+  //   );
+  //   const data = await response.json();
+  //   console.log("in category click  search: ", data);
+  //   setCocktailData(data.data.cocks);
+  //   setPageNumber(([prev, maxPrev]) => [
+  //     1,
+  //     Math.ceil(data.data.cocks.length / 3),
+  //   ]);
+  // };
   let ingredientList: JSX.Element[] = [];
   let meausermentList: JSX.Element[] = [];
   for (let i = 0; i < 15; i++) {
@@ -57,14 +59,21 @@ const Card = ({
       );
     }
   }
-  const categoryClick = (event: any) => {
+  const categoryClick = async (event: any) => {
     console.log(event.target.textContent);
-    fetchData("category", event.target.textContent);
+    const data = await fetchData("category", event.target.textContent);
+    console.log("in category click  search: ", data);
+
+    setCocktailData(data.data.cocks);
+    setPageNumber(([prev, maxPrev]) => [
+      1,
+      Math.ceil(data.data.cocks.length / 3),
+    ]);
   };
   const handleListClick = (event: any) => {
     console.log(event.target.dataset.ingredient);
     if (!event.target.dataset.ingredient) return;
-    fetchData("ingredients", event.target.dataset.ingredient);
+    const data = fetchData("ingredients", event.target.dataset.ingredient);
   };
   const [cardAnimation, setCardAnimation] = useState("");
   const addAnimation = () => {

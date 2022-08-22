@@ -38,6 +38,36 @@ body {
 .navbar-header {
   color: white;
 }
+.navbar--buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+}
+
+.btn--navbar {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset;
+  height: 56px;
+  width: 56px;
+  border-radius: 10px;
+  padding: 10px;
+  margin-right: 8px;
+}
+
+.btn--navbar:hover {
+  cursor: pointer;
+}
+/* .btn--random {
+  height: 38px;
+  width: 38px;
+}
+.btn--search {
+  height: 38px;
+  width: 38px;
+} */
+
+.btn--enter-icon {
+  filter: brightness(0) invert(1);
+}
 
 .search-input {
   height: 48px;
@@ -46,23 +76,10 @@ body {
   background: transparent;
   border: none;
   font-size: large;
+  color: white;
 }
-
-.btn--search {
-  height: 38px;
-  width: 38px;
-}
-.btn--enter-icon {
-  filter: brightness(0) invert(1);
-}
-.btn--random {
-  height: 38px;
-  width: 38px;
-}
-.navbar--buttons {
-  display: flex;
-  justify-content: space-between;
-  width: 100px;
+.search-input::placeholder {
+  color: white;
 }
 
 .card-container {
