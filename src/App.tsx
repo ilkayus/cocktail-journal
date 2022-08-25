@@ -3,12 +3,16 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import Pagination from "./components/Pagination";
+// import AdvancedSearcModal from "./components/AdvancedSearch";
 // import cocktailObject from "./data/cocktailData.json";
 
 function App() {
+  // const [advancedSearch, setAdvancedSearch] = useState(false);
   const [randomClick, setRandomClick] = useState(0);
   const [cocktailData, setCocktailData] = useState([]);
   const [[pageNumber, pageMax], setPageNumber] = useState([1, 1]);
+  const [selectedCard, setSelectedCard] = useState<string | null>(null);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("http://127.0.0.1:9000/api/v1");
@@ -34,14 +38,17 @@ function App() {
     (item: any) => {
       return (
         <Card
-          key={item._id}
+          key={item.drinkID}
           {...item}
           setCocktailData={setCocktailData}
           setPageNumber={setPageNumber}
+          setSelectedCard={setSelectedCard}
+          selectedCard={selectedCard}
         />
       );
     }
   );
+
   return (
     <div className="App">
       <Navbar

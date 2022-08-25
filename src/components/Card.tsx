@@ -1,9 +1,8 @@
 import { useState } from "react";
 import fetchData from "../services/fetchData";
-// import renderNew from "../services/renderNew";
+import renderNew from "../services/renderNew";
 
 export interface Props {
-  key: string;
   imagePreview: string;
   category: string;
   cocktailName: string;
@@ -14,10 +13,12 @@ export interface Props {
   ingMeasure: any[];
   setCocktailData: any;
   setPageNumber: React.Dispatch<React.SetStateAction<[number, number]>>;
+  setSelectedCard: React.Dispatch<React.SetStateAction<string>>;
+  drinkID: string;
+  selectedCard: string;
 }
 
 const Card = ({
-  key,
   imagePreview,
   category,
   cocktailName,
@@ -28,21 +29,10 @@ const Card = ({
   ingMeasure,
   setCocktailData,
   setPageNumber,
+  setSelectedCard,
+  selectedCard,
+  drinkID,
 }: Props) => {
-  // const fetchData = async (fetchCategory: string, fetchId: string) => {
-  //   if (fetchId === undefined || fetchId === null || fetchId === "") return;
-  //   if (fetchId.includes("/")) fetchId = fetchId.replace("/", "+");
-  //   const response = await fetch(
-  //     `http://127.0.0.1:9000/api/v1/${fetchCategory}/${fetchId}`
-  //   );
-  //   const data = await response.json();
-  //   console.log("in category click  search: ", data);
-  //   setCocktailData(data.data.cocks);
-  //   setPageNumber(([prev, maxPrev]) => [
-  //     1,
-  //     Math.ceil(data.data.cocks.length / 3),
-  //   ]);
-  // };
   let ingredientList: JSX.Element[] = [];
   let meausermentList: JSX.Element[] = [];
   for (let i = 0; i < 15; i++) {
@@ -60,33 +50,33 @@ const Card = ({
     }
   }
   const categoryClick = async (event: any) => {
-    console.log(event.target.textContent);
     const data = await fetchData("category", event.target.textContent);
-    console.log("in category click  search: ", data);
+    renderNew(setCocktailData, setPageNumber, data);
+  };
 
-    setCocktailData(data.data.cocks);
-    setPageNumber(([prev, maxPrev]) => [
-      1,
-      Math.ceil(data.data.cocks.length / 3),
-    ]);
-  };
-  const handleListClick = (event: any) => {
-    console.log(event.target.dataset.ingredient);
+  const handleListClick = async (event: any) => {
     if (!event.target.dataset.ingredient) return;
-    const data = fetchData("ingredients", event.target.dataset.ingredient);
+    const data = await fetchData(
+      "ingredients",
+      event.target.dataset.ingredient
+    );
+    renderNew(setCocktailData, setPageNumber, data);
   };
+
   const [cardAnimation, setCardAnimation] = useState("");
-  const addAnimation = () => {
+  const addAnimation = (event: any) => {
     setCardAnimation((prev) => (prev === "" ? "cocktail-card-animation" : ""));
+    console.log(event);
   };
-  // const removeAnimation = () => {
-  //   setCardAnimation("");
-  // };
+
+  const animation = selectedCard === drinkID ? "cocktail-card-animation" : "";
+
   return (
     <figure
-      className={"cocktail-card " + cardAnimation}
-      onClick={addAnimation}
-      // onMouseOut={removeAnimation}
+      className={"cocktail-card " + animation}
+      onClick={() => {
+        setSelectedCard(drinkID);
+      }}
     >
       <div className="cocktail-image-container">
         <img

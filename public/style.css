@@ -17,6 +17,11 @@ body {
   margin: auto;
   height: 100vh;
 }
+@media screen and (max-width: 700px) {
+  .App {
+    width: 100%;
+  }
+}
 
 .navbar {
   height: 70px;
@@ -41,7 +46,7 @@ body {
 .navbar--buttons {
   display: flex;
   justify-content: space-between;
-  width: 100px;
+  width: 168px;
 }
 
 .btn--navbar {
@@ -85,6 +90,7 @@ body {
 .card-container {
   display: flex;
   flex-direction: column;
+  /* height: 780px; */
   margin: 0;
   margin-top: 20px;
 }
@@ -95,19 +101,19 @@ body {
   align-items: flex-start;
   margin: 0;
   margin-bottom: 10px;
-  height: 250px;
+  max-height: 250px;
   min-height: 250px;
   border-radius: 15px;
   background-color: rgba(26, 22, 22, 0.829);
   box-shadow: 0px 2.98px 7.45px rgba(0, 0, 0, 0.5);
   color: white;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
   transition: all 0.5s ease;
+  overflow: hidden;
 }
 
 .cocktail-card-animation {
-  height: 400px;
+  max-height: 800px;
+  transition: all 0.5s ease;
 }
 
 .cocktail-image {
@@ -143,6 +149,7 @@ body {
   transition: background 2s;
 }
 .cocktail-category:hover {
+  transition: background 2s ease-in;
   background: linear-gradient(
     to bottom right,
     rgba(71, 23, 9, 0.72),
@@ -218,4 +225,17 @@ body {
 .pagination > ul > li > button {
   color: white !important;
   background-color: rgba(26, 22, 22, 0.829) !important;
+}
+
+.modal--box {
+  display: flex;
+  flex-direction: column;
+}
+
+.advanced--search-checkboxes {
+  padding: 15px;
+  width: auto;
+}
+
+.btn--advanced-search-results {
 }
