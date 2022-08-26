@@ -26,6 +26,11 @@ function App() {
     };
     fetchData();
   }, [randomClick]);
+
+  useEffect(() => {
+    setSelectedCard(null);
+  }, [cocktailData]);
+
   const startDataLength = cocktailData.length;
 
   console.log("new state:", cocktailData, startDataLength);

@@ -1,3 +1,4 @@
+import { log } from "console";
 import { useState } from "react";
 import fetchData from "../services/fetchData";
 import renderNew from "../services/renderNew";
@@ -13,9 +14,9 @@ export interface Props {
   ingMeasure: any[];
   setCocktailData: any;
   setPageNumber: React.Dispatch<React.SetStateAction<[number, number]>>;
-  setSelectedCard: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedCard: React.Dispatch<React.SetStateAction<string | null>>;
   drinkID: string;
-  selectedCard: string;
+  selectedCard: string | null;
 }
 
 const Card = ({
@@ -65,19 +66,24 @@ const Card = ({
 
   const [cardAnimation, setCardAnimation] = useState("");
   const addAnimation = (event: any) => {
-    setCardAnimation((prev) => (prev === "" ? "cocktail-card-animation" : ""));
+    if (selectedCard === drinkID) {
+      setSelectedCard(null);
+      return;
+    }
+    setSelectedCard(drinkID);
     console.log(event);
   };
 
-  const animation = selectedCard === drinkID ? "cocktail-card-animation" : "";
+  const animation =
+    selectedCard === drinkID
+      ? "cocktail-card-animation"
+      : selectedCard
+      ? "cocktail-card-animation-hidden"
+      : "";
 
+  console.log(drinkID, "drg ID");
   return (
-    <figure
-      className={"cocktail-card " + animation}
-      onClick={() => {
-        setSelectedCard(drinkID);
-      }}
-    >
+    <figure className={"cocktail-card " + animation} onClick={addAnimation}>
       <div className="cocktail-image-container">
         <img
           src={imagePreview}

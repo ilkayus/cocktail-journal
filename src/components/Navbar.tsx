@@ -53,7 +53,6 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
       {isSearch
         ? HeaderText()
         : HeaderInput(handleChange, inputData, handleSubmit)}
-      ;
       <div className="navbar--buttons">
         <img
           src={isSearch ? "./img/search-1.svg" : "./img/enter-icon.png"}

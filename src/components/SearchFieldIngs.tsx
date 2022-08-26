@@ -15,8 +15,16 @@ export interface Props {
 }
 
 const SearchIngredients = ({ multiSelection, data, dataTitle }: Props) => {
+  const [value, setValue] = React.useState<
+    { title: string } | { title: string }[] | null
+  >([]);
   return (
     <Autocomplete
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+        console.log(value);
+      }}
       className="advanced--search-checkboxes"
       multiple={multiSelection}
       id="checkboxes-tags-demo"

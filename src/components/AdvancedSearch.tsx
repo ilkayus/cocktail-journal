@@ -30,36 +30,34 @@ const AdvancedSearcModal = ({
   handleAdvancedSearchClick,
 }: Props) => {
   return (
-    <div>
-      <Modal
-        open={advancedSearch}
-        onClose={handleAdvancedSearchClick}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} className="modal--box">
-          <h2>Find Your Favorite Cocktails!</h2>
-          <SearchIngredients
-            multiSelection={false}
-            data={typeData}
-            dataTitle="Type"
-          />
-          <SearchIngredients
-            multiSelection={false}
-            data={categoriesData}
-            dataTitle="Categories"
-          />
-          <SearchIngredients
-            multiSelection={true}
-            data={ingredientsData}
-            dataTitle="Ingredients"
-          />
-          <Button variant="outlined" className="btn--advanced-search-results">
-            BIRING!
-          </Button>
-        </Box>
-      </Modal>
-    </div>
+    <Modal
+      open={advancedSearch}
+      onClose={handleAdvancedSearchClick}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style} className="modal--box">
+        <h2>Find Your Favorite Cocktails!</h2>
+        <SearchIngredients
+          multiSelection={false}
+          data={typeData}
+          dataTitle="Type"
+        />
+        <SearchIngredients
+          multiSelection={false}
+          data={categoriesData}
+          dataTitle="Categories"
+        />
+        <SearchIngredients
+          multiSelection={true}
+          data={ingredientsData}
+          dataTitle="Ingredients"
+        />
+        <Button variant="outlined" className="btn--advanced-search-results">
+          BIRING!
+        </Button>
+      </Box>
+    </Modal>
   );
 };
 

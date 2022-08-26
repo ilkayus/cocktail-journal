@@ -101,8 +101,7 @@ body {
   align-items: flex-start;
   margin: 0;
   margin-bottom: 10px;
-  max-height: 250px;
-  min-height: 250px;
+  height: 250px;
   border-radius: 15px;
   background-color: rgba(26, 22, 22, 0.829);
   box-shadow: 0px 2.98px 7.45px rgba(0, 0, 0, 0.5);
@@ -112,7 +111,11 @@ body {
 }
 
 .cocktail-card-animation {
-  max-height: 800px;
+  height: 480px;
+  transition: all 0.5s ease;
+}
+.cocktail-card-animation-hidden {
+  height: 150px;
   transition: all 0.5s ease;
 }
 
@@ -230,6 +233,7 @@ body {
 .modal--box {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
 
 .advanced--search-checkboxes {
