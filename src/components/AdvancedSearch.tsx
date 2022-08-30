@@ -1,12 +1,12 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import SearchIngredients from "./SearchFieldIngs";
 import ingredientsData from "../data/ingredients.json";
 import categoriesData from "../data/categories.json";
 import typeData from "../data/typeAlcoholic.json";
+import { isNull } from "util";
 
 const style = {
   position: "absolute" as "absolute",
@@ -29,6 +29,31 @@ const AdvancedSearcModal = ({
   advancedSearch,
   handleAdvancedSearchClick,
 }: Props) => {
+  const [typeValue, setTypeValue] = React.useState<{ title: string } | null>(
+    null
+  );
+  const [categoriesValue, setCategoriesValue] = React.useState<{
+    title: string;
+  } | null>(null);
+  const [ingredientsValue, setIngredientsValue] = React.useState<
+    { title: string }[] | null
+  >([]);
+  const handleBringClick = () => {
+    const type = typeValue?.title;
+    const category = categoriesValue?.title;
+    const ings = ingredientsValue?.map((el) => {
+      return el?.title;
+    });
+    console.log(ings, ingredientsValue);
+    console.log(
+      "type:" +
+        type?.toString() +
+        "\ncategory:" +
+        category?.toString() +
+        " ingredients:" +
+        ings
+    );
+  };
   return (
     <Modal
       open={advancedSearch}
@@ -42,18 +67,25 @@ const AdvancedSearcModal = ({
           multiSelection={false}
           data={typeData}
           dataTitle="Type"
+          setValue={setTypeValue}
         />
         <SearchIngredients
           multiSelection={false}
           data={categoriesData}
           dataTitle="Categories"
+          setValue={setCategoriesValue}
         />
         <SearchIngredients
           multiSelection={true}
           data={ingredientsData}
           dataTitle="Ingredients"
+          setValue={setIngredientsValue}
         />
-        <Button variant="outlined" className="btn--advanced-search-results">
+        <Button
+          variant="outlined"
+          className="btn--advanced-search-results"
+          onClick={handleBringClick}
+        >
           BIRING!
         </Button>
       </Box>
