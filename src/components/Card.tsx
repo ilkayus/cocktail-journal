@@ -1,6 +1,6 @@
 import { log } from "console";
 import { useState } from "react";
-import fetchData from "../services/fetchData";
+import { fetchData } from "../services/fetchData";
 import renderNew from "../services/renderNew";
 
 export interface Props {

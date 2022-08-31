@@ -1,7 +1,7 @@
 import React from "react";
 import HeaderText from "./Header-text";
 import HeaderInput from "./Header-input";
-import fetchData from "../services/fetchData";
+import { fetchData } from "../services/fetchData";
 import renderNew from "../services/renderNew";
 import AdvancedSearcModal from "./AdvancedSearch";
 export interface Props {
@@ -80,6 +80,8 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
       <AdvancedSearcModal
         advancedSearch={advancedSearch}
         handleAdvancedSearchClick={handleAdvancedSearchClick}
+        setCocktailData={setCocktailData}
+        setPageNumber={setPageNumber}
       />
     </nav>
   );

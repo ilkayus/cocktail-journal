@@ -6,7 +6,8 @@ import SearchIngredients from "./SearchFieldIngs";
 import ingredientsData from "../data/ingredients.json";
 import categoriesData from "../data/categories.json";
 import typeData from "../data/typeAlcoholic.json";
-import { isNull } from "util";
+import { fetchData, fetchSearchData } from "../services/fetchData";
+import renderNew from "../services/renderNew";
 
 const style = {
   position: "absolute" as "absolute",
@@ -23,11 +24,15 @@ const style = {
 export interface Props {
   advancedSearch: boolean;
   handleAdvancedSearchClick: any;
+  setCocktailData: any;
+  setPageNumber: React.Dispatch<React.SetStateAction<[number, number]>>;
 }
 
 const AdvancedSearcModal = ({
   advancedSearch,
   handleAdvancedSearchClick,
+  setCocktailData,
+  setPageNumber,
 }: Props) => {
   const [typeValue, setTypeValue] = React.useState<{ title: string } | null>(
     null
@@ -38,21 +43,19 @@ const AdvancedSearcModal = ({
   const [ingredientsValue, setIngredientsValue] = React.useState<
     { title: string }[] | null
   >([]);
-  const handleBringClick = () => {
-    const type = typeValue?.title;
-    const category = categoriesValue?.title;
+  const handleBringClick = async () => {
+    const type = typeValue?.title.toString();
+    const category = categoriesValue?.title.toString();
     const ings = ingredientsValue?.map((el) => {
       return el?.title;
     });
-    console.log(ings, ingredientsValue);
-    console.log(
-      "type:" +
-        type?.toString() +
-        "\ncategory:" +
-        category?.toString() +
-        " ingredients:" +
-        ings
-    );
+    const data = await fetchSearchData(type, category, ings);
+    console.log(data);
+    renderNew(setCocktailData, setPageNumber, data);
+    setTypeValue(null);
+    setCategoriesValue(null);
+    setIngredientsValue(null);
+    handleAdvancedSearchClick();
   };
   return (
     <Modal
