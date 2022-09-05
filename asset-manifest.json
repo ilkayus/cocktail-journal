@@ -1,15 +1,19 @@
 {
   "files": {
-    "main.css": "/cocktail-journal/static/css/main.073c9b0a.css",
-    "main.js": "/cocktail-journal/static/js/main.35f89709.js",
+    "main.css": "/cocktail-journal/static/css/main.20480736.css",
+    "main.js": "/cocktail-journal/static/js/main.cf8caa50.js",
     "static/js/787.a6d36676.chunk.js": "/cocktail-journal/static/js/787.a6d36676.chunk.js",
+    "static/media/cocktail-pattern.jpg": "/cocktail-journal/static/media/cocktail-pattern.6a73da1f9825cc860306.jpg",
+    "static/media/search-1.svg": "/cocktail-journal/static/media/search-1.de87c81f5887a1c02efbeafb98a1bda5.svg",
+    "static/media/advanced-search.svg": "/cocktail-journal/static/media/advanced-search.ed8f7061579903f479d808a6d6e6f562.svg",
     "index.html": "/cocktail-journal/index.html",
-    "main.073c9b0a.css.map": "/cocktail-journal/static/css/main.073c9b0a.css.map",
-    "main.35f89709.js.map": "/cocktail-journal/static/js/main.35f89709.js.map",
+    "static/media/random-thin.svg": "/cocktail-journal/static/media/random-thin.0e37b314a5ee9300947291b1da7d88c5.svg",
+    "main.20480736.css.map": "/cocktail-journal/static/css/main.20480736.css.map",
+    "main.cf8caa50.js.map": "/cocktail-journal/static/js/main.cf8caa50.js.map",
     "787.a6d36676.chunk.js.map": "/cocktail-journal/static/js/787.a6d36676.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.35f89709.js"
+    "static/css/main.20480736.css",
+    "static/js/main.cf8caa50.js"
   ]
 }
