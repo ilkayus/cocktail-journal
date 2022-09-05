@@ -15,7 +15,10 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://127.0.0.1:9000/api/v1");
+      // const response = await fetch("http://127.0.0.1:9000/api/v1");
+      const response = await fetch(
+        "https://cocktail-journal-server.herokuapp.com/api/v1/"
+      );
       const data = await response.json();
       console.log("in use effect: ", data);
       setCocktailData(data.data.cocks);

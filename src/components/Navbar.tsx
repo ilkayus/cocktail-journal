@@ -4,6 +4,10 @@ import HeaderInput from "./Header-input";
 import { fetchData } from "../services/fetchData";
 import renderNew from "../services/renderNew";
 import AdvancedSearcModal from "./AdvancedSearch";
+import advancedSearchIcon from "../img/advanced-search.svg";
+import randomIcon from "../img/random-thin.svg";
+import enterIcon from "../img/enter-icon.png";
+import searchIcon from "../img/search-1.svg";
 export interface Props {
   setRandomClick: any;
   setCocktailData: any;
@@ -55,7 +59,7 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
         : HeaderInput(handleChange, inputData, handleSubmit)}
       <div className="navbar--buttons">
         <img
-          src={isSearch ? "./img/search-1.svg" : "./img/enter-icon.png"}
+          src={isSearch ? searchIcon : enterIcon}
           alt="search icon"
           className={
             isSearch
@@ -65,13 +69,13 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
           onClick={handleSearchClick}
         />
         <img
-          src="./img/advanced-search.svg"
+          src={advancedSearchIcon}
           alt="advanced search icon"
           className="btn--advanced-search btn--navbar"
           onClick={handleAdvancedSearchClick}
         />
         <img
-          src="./img/random-thin.svg"
+          src={randomIcon}
           alt="random icon"
           className="btn--random btn--navbar"
           onClick={randomClick}

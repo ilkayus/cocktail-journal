@@ -3,7 +3,8 @@ const fetchData = async (fetchCategory: string, fetchId: string) => {
     return "Failed to fetch. Fetch id was missing.";
   if (fetchId.indexOf("/")) fetchId = fetchId.replace("/", "+");
   const response = await fetch(
-    `http://127.0.0.1:9000/api/v1/${fetchCategory}/${fetchId}`
+    `https://cocktail-journal-server.herokuapp.com/api/v1/${fetchCategory}/${fetchId}`
+    // `http://127.0.0.1:9000/api/v1/${fetchCategory}/${fetchId}`
   );
   const data = await response.json();
   if (!data) return "No results found.";
@@ -18,7 +19,8 @@ const fetchSearchData = async (
   console.log(type, category, ingredients);
   if (category?.indexOf("/")) category = category.replace("/", "+");
   const response = await fetch(
-    `http://127.0.0.1:9000/api/v1/search/${type}/${category}/${ingredients?.join(
+    `https://cocktail-journal-server.herokuapp.com/api/v1/search/${type}/${category}/${ingredients?.join(
+      // `http://127.0.0.1:9000/api/v1/search/${type}/${category}/${ingredients?.join(
       ","
     )}`
   );

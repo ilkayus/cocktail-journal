@@ -42,7 +42,7 @@ const AdvancedSearcModal = ({
   } | null>(null);
   const [ingredientsValue, setIngredientsValue] = React.useState<
     { title: string }[] | null
-  >([]);
+  >(null);
   const handleBringClick = async () => {
     const type = typeValue?.title.toString();
     const category = categoriesValue?.title.toString();
@@ -66,31 +66,35 @@ const AdvancedSearcModal = ({
     >
       <Box sx={style} className="modal--box">
         <h2>Find Your Favorite Cocktails!</h2>
-        <SearchIngredients
-          multiSelection={false}
-          data={typeData}
-          dataTitle="Type"
-          setValue={setTypeValue}
-        />
-        <SearchIngredients
-          multiSelection={false}
-          data={categoriesData}
-          dataTitle="Categories"
-          setValue={setCategoriesValue}
-        />
-        <SearchIngredients
-          multiSelection={true}
-          data={ingredientsData}
-          dataTitle="Ingredients"
-          setValue={setIngredientsValue}
-        />
-        <Button
-          variant="outlined"
-          className="btn--advanced-search-results"
-          onClick={handleBringClick}
-        >
-          BIRING!
-        </Button>
+        <div className="modal--box-content">
+          <SearchIngredients
+            multiSelection={false}
+            data={typeData}
+            dataTitle="Type"
+            setValue={setTypeValue}
+          />
+          <SearchIngredients
+            multiSelection={false}
+            data={categoriesData}
+            dataTitle="Categories"
+            setValue={setCategoriesValue}
+          />
+          <SearchIngredients
+            multiSelection={true}
+            data={ingredientsData}
+            dataTitle="Ingredients"
+            setValue={setIngredientsValue}
+          />
+        </div>
+        <div className="modal--box-button-container">
+          <Button
+            variant="outlined"
+            className="btn--advanced-search-results"
+            onClick={handleBringClick}
+          >
+            BIRING!
+          </Button>
+        </div>
       </Box>
     </Modal>
   );
