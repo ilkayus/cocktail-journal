@@ -24,6 +24,7 @@ const Pagination = ({ setPageNumber, pageInfo }: Props) => {
       variant="outlined"
       page={pageInfo[0]}
       onChange={handleChangePage}
+      siblingCount={0}
       showFirstButton={pageInfo[1] > 5}
       showLastButton={pageInfo[1] > 5}
     />

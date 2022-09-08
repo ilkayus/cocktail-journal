@@ -65,10 +65,12 @@ function App() {
         setPageNumber={setPageNumber}
       />
       <div className="card-container">{cards}</div>
-      <Pagination
-        setPageNumber={setPageNumber}
-        pageInfo={[pageNumber, pageMax]}
-      />
+      <div className="pagination--container">
+        <Pagination
+          setPageNumber={setPageNumber}
+          pageInfo={[pageNumber, pageMax]}
+        />
+      </div>
     </div>
   );
 }

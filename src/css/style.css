@@ -19,14 +19,14 @@ body {
 }
 
 .navbar {
-  height: min(70px, 10vw);
+  height: clamp(70px, 12vw, 35px);
   padding: 0px min(36px, 3vw);
   box-shadow: 0px 2.98px 7.45px rgba(0, 0, 0, 0.5);
   text-align: center;
   background: linear-gradient(
     to bottom right,
     rgba(71, 23, 9, 0.72),
-    rgba(241, 7, 7, 0.83)
+    /* rgba(241, 7, 7, 0.83) */ rgba(204, 203, 199, 0.425)
   );
   border-radius: 15px;
   display: flex;
@@ -209,22 +209,29 @@ body {
 }
 
 .cocktail-ingredients > li:hover {
-  font-size: 15px;
+  font-size: 0.9em;
   font-weight: bold;
   color: rgba(241, 7, 7, 0.83);
   cursor: pointer;
 }
 
-.pagination {
+.pagination--container {
   display: flex;
   justify-content: center;
   margin-top: auto;
-  margin-bottom: 30px;
+  margin-bottom: 100%;
 }
 
 .pagination > ul > li > button {
   color: white !important;
   background-color: rgba(26, 22, 22, 0.829) !important;
+  max-width: 10vw !important;
+  max-height: 10vw !important;
+}
+
+.pagination > ul > li {
+  min-width: none !important;
+  max-width: 10vw !important;
 }
 
 .modal--box {
