@@ -41,12 +41,14 @@ const Card = ({
     else {
       const ingIcon = i % 2 === 0 ? "💧" : "🩸";
       ingredientList.push(
-        <li data-ingredient={ingredients[i]}>
+        <li key={i} data-ingredient={ingredients[i]}>
           {ingIcon} {ingredients[i]}
         </li>
       );
       meausermentList.push(
-        <li>🧪 {ingMeasure[i] === null ? "Optional" : ingMeasure[i]}</li>
+        <li key={i}>
+          🧪 {ingMeasure[i] === null ? "Optional" : ingMeasure[i]}
+        </li>
       );
     }
   }
@@ -64,14 +66,14 @@ const Card = ({
     renderNew(setCocktailData, setPageNumber, data);
   };
 
-  const [cardAnimation, setCardAnimation] = useState("");
   const addAnimation = (event: any) => {
     if (selectedCard === drinkID) {
       setSelectedCard(null);
+      console.log("Card animation return");
       return;
     }
     setSelectedCard(drinkID);
-    console.log(event);
+    console.log("card animation added");
   };
 
   const animation =
@@ -81,9 +83,13 @@ const Card = ({
       ? "cocktail-card-animation-hidden"
       : "";
 
-  console.log(drinkID, "drg ID");
+  console.log(drinkID, "drg ID", animation, selectedCard);
   return (
-    <figure className={"cocktail-card " + animation} onClick={addAnimation}>
+    <figure
+      key={drinkID}
+      className={"cocktail-card " + animation}
+      onClick={addAnimation}
+    >
       <div className="cocktail-image-container">
         <img
           src={imagePreview}

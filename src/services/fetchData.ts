@@ -1,32 +1,31 @@
-const fetchData = async (fetchCategory: string, fetchId: string) => {
-  if (fetchId === undefined || fetchId === null || fetchId === "")
-    return "Failed to fetch. Fetch id was missing.";
-  if (fetchId.indexOf("/")) fetchId = fetchId.replace("/", "+");
-  const response = await fetch(
-    `https://cocktail-journal-server.herokuapp.com/api/v1/${fetchCategory}/${fetchId}`
-    // `http://127.0.0.1:9000/api/v1/${fetchCategory}/${fetchId}`
-  );
-  const data = await response.json();
-  if (!data) return "No results found.";
-  return data;
+import axios from "axios";
+import { ICocktailData } from "../types/cocktailData.interface";
+
+const BASE_URL = "https://cocktail-journal-server.herokuapp.com/api/v1/";
+
+export const fetchData = async (
+  fetchString: string,
+  fetchInfo: string
+): Promise<ICocktailData> => {
+  console.log(fetchString, fetchInfo, urlBuilder(fetchString, fetchInfo));
+  const url = `${BASE_URL}${urlBuilder(fetchString, fetchInfo)}`;
+  const response = await axios.get(url);
+  return response.data;
 };
 
-const fetchSearchData = async (
-  type: string | undefined,
-  category: string | undefined,
-  ingredients: string[] | undefined
-) => {
-  console.log(type, category, ingredients);
-  if (category?.indexOf("/")) category = category.replace("/", "+");
-  const response = await fetch(
-    `https://cocktail-journal-server.herokuapp.com/api/v1/search/${type}/${category}/${ingredients?.join(
-      // `http://127.0.0.1:9000/api/v1/search/${type}/${category}/${ingredients?.join(
-      ","
-    )}`
-  );
-  const data = await response.json();
-  if (!data) return "No results found.";
-  return data;
+const urlBuilder = (fetchString: string, fetchInfo: string): string => {
+  if (fetchInfo.indexOf("/")) fetchInfo = fetchInfo.replace("/", "+");
+  if (fetchString === "homepage") return "";
+  if (
+    fetchString === "category" ||
+    fetchString === "ingredients" ||
+    fetchString === "cocktailName"
+  ) {
+    return `${fetchString}/${fetchInfo}`;
+  }
+  if (fetchString === "search") {
+    const searchString = fetchInfo.split(":");
+    return `${fetchString}/${searchString[0]}/${searchString[1]}/${searchString[2]}`;
+  }
+  return "";
 };
-
-export { fetchData, fetchSearchData };

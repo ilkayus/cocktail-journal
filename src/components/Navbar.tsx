@@ -28,8 +28,9 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
   };
 
   const searchResults = async (searchText: string) => {
-    const data = await fetchData("cocktailName", searchText);
-    renderNew(setCocktailData, setPageNumber, data);
+    fetchData("cocktailName", searchText).then((data) =>
+      renderNew(setCocktailData, setPageNumber, data)
+    );
   };
 
   const handleSubmit = (event: any) => {

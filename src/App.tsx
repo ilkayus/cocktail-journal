@@ -3,59 +3,49 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import Pagination from "./components/Pagination";
+import { fetchData } from "./services/fetchData";
+import renderNew from "./services/renderNew";
+import { ICocktailData } from "./types/cocktailData.interface";
 // import AdvancedSearcModal from "./components/AdvancedSearch";
 // import cocktailObject from "./data/cocktailData.json";
 
 function App() {
   // const [advancedSearch, setAdvancedSearch] = useState(false);
   const [randomClick, setRandomClick] = useState(0);
-  const [cocktailData, setCocktailData] = useState([]);
+  const [cocktailData, setCocktailData] = useState<ICocktailData[]>([]);
   const [[pageNumber, pageMax], setPageNumber] = useState([1, 1]);
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
-
+  const [cards, setCards] = useState<JSX.Element[]>([]);
   useEffect(() => {
-    const fetchData = async () => {
-      // const response = await fetch("http://127.0.0.1:9000/api/v1");
-      const response = await fetch(
-        "https://cocktail-journal-server.herokuapp.com/api/v1/"
-      );
-      const data = await response.json();
-      console.log("in use effect: ", data);
-      setCocktailData(data.data.cocks);
-      setPageNumber(([prev, maxPrev]) => [
-        1,
-        Math.ceil(data.data.cocks.length / 3),
-      ]);
-    };
-    fetchData();
+    fetchData("homepage", "").then((data) =>
+      renderNew(setCocktailData, setPageNumber, data)
+    );
   }, [randomClick]);
 
   useEffect(() => {
-    setSelectedCard(null);
-  }, [cocktailData]);
-
-  const startDataLength = cocktailData.length;
-
-  console.log("new state:", cocktailData, startDataLength);
-  console.log("pagination:", ...[pageNumber, pageMax]);
+    const cardsData = pageHandler(cocktailData, pageNumber);
+    const ids = new Set<string | null>();
+    cardsData.map((item: any) => ids.add(item.drinkID));
+    if (!ids.has(selectedCard) && selectedCard) setSelectedCard(null);
+    setCards(
+      cardsData.map((item: any) => {
+        return (
+          <Card
+            key={item.drinkID}
+            {...item}
+            setCocktailData={setCocktailData}
+            setPageNumber={setPageNumber}
+            setSelectedCard={setSelectedCard}
+            selectedCard={selectedCard}
+          />
+        );
+      })
+    );
+  }, [cocktailData, pageNumber, selectedCard]);
 
   const pageHandler = (data: any, page: number) => {
     return data.slice(page * 3 - 3, page * 3);
   };
-  const cards: JSX.Element[] = pageHandler(cocktailData, pageNumber).map(
-    (item: any) => {
-      return (
-        <Card
-          key={item.drinkID}
-          {...item}
-          setCocktailData={setCocktailData}
-          setPageNumber={setPageNumber}
-          setSelectedCard={setSelectedCard}
-          selectedCard={selectedCard}
-        />
-      );
-    }
-  );
 
   return (
     <div className="App">

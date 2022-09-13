@@ -6,7 +6,7 @@ import SearchIngredients from "./SearchFieldIngs";
 import ingredientsData from "../data/ingredients.json";
 import categoriesData from "../data/categories.json";
 import typeData from "../data/typeAlcoholic.json";
-import { fetchData, fetchSearchData } from "../services/fetchData";
+import { fetchData } from "../services/fetchData";
 import renderNew from "../services/renderNew";
 
 const style = {
@@ -49,9 +49,10 @@ const AdvancedSearcModal = ({
     const ings = ingredientsValue?.map((el) => {
       return el?.title;
     });
-    const data = await fetchSearchData(type, category, ings);
-    console.log(data);
-    renderNew(setCocktailData, setPageNumber, data);
+    fetchData(
+      "search",
+      `${type + ":" + category + ":" + ings?.join(",")}`
+    ).then((data) => renderNew(setCocktailData, setPageNumber, data));
     setTypeValue(null);
     setCategoriesValue(null);
     setIngredientsValue(null);
