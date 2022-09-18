@@ -51,6 +51,7 @@ function App() {
 
   return (
     <div className="App">
+      <div id="singInDiv"></div>
       <Navbar
         setRandomClick={setRandomClick}
         setCocktailData={setCocktailData}

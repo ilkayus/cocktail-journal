@@ -8,6 +8,7 @@ import advancedSearchIcon from "../img/advanced-search.svg";
 import randomIcon from "../img/random-thin.svg";
 import enterIcon from "../img/enter-icon.png";
 import searchIcon from "../img/search-1.svg";
+import loginIcon from "../img/login.png";
 export interface Props {
   setRandomClick: any;
   setCocktailData: any;
@@ -80,6 +81,12 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
           alt="random icon"
           className="btn--random btn--navbar"
           onClick={randomClick}
+        />
+        <img
+          src={loginIcon}
+          alt="login icon"
+          className="btn--login btn--navbar"
+          onClick={() => alert("login")}
         />
       </div>
       <AdvancedSearcModal

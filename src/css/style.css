@@ -41,7 +41,7 @@ body {
 .navbar--buttons {
   display: flex;
   justify-content: space-between;
-  max-width: 168px;
+  max-width: 224px;
 }
 
 .btn--navbar {
