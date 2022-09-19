@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../css/singIn.css";
 import googleIcon from "../img/google.svg";
-import envelopIcon from "../img/envelope.svg";
+import envelopIcon from "../img/envelop.svg";
 import rightArrowIcon from "../img/right-arrow.svg";
 import lockOpenIcon from "../img/lock-open.svg";
 
@@ -10,7 +10,7 @@ export interface Props {
   //   setSignUp: any;
 }
 
-const SignIn = () => {
+const SingIn = () => {
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -132,7 +132,7 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SingIn;
 
 // function App() {
 //   const user = JSON.parse(localStorage.getItem("user"));
