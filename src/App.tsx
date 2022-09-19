@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
@@ -7,7 +8,7 @@ import { fetchData } from "./services/fetchData";
 import renderNew from "./services/renderNew";
 import { ICocktailData } from "./types/cocktailData.interface";
 import Loading from "./components/Loading";
-// import SignIn from "./components/SingIn";
+import SignIn from "./components/SignIn";
 // import AdvancedSearcModal from "./components/AdvancedSearch";
 // import cocktailObject from "./data/cocktailData.json";
 
@@ -51,26 +52,31 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {/* <div id="singInDiv">
-        {" "}
-        <SignIn />{" "}
-      </div> */}
-      <Navbar
-        setRandomClick={setRandomClick}
-        setCocktailData={setCocktailData}
-        setPageNumber={setPageNumber}
-      />
-      <div className="card-container">
-        {cards.length > 0 ? cards : <Loading />}
+    <Routes>
+      <div className="App">
+        <Route path="/login" element={<SignIn />}>
+          <SignIn />
+        </Route>
+        <Route path="/" element={<></>}>
+          <>
+            <Navbar
+              setRandomClick={setRandomClick}
+              setCocktailData={setCocktailData}
+              setPageNumber={setPageNumber}
+            />
+            <div className="card-container">
+              {cards.length > 0 ? cards : <Loading />}
+            </div>
+            <div className="pagination--container">
+              <Pagination
+                setPageNumber={setPageNumber}
+                pageInfo={[pageNumber, pageMax]}
+              />
+            </div>
+          </>
+        </Route>
       </div>
-      <div className="pagination--container">
-        <Pagination
-          setPageNumber={setPageNumber}
-          pageInfo={[pageNumber, pageMax]}
-        />
-      </div>
-    </div>
+    </Routes>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../css/singIn.css";
+import "../css/signIn.css";
 import googleIcon from "../img/google.svg";
 import envelopIcon from "../img/envelop.svg";
 import rightArrowIcon from "../img/right-arrow.svg";
@@ -10,7 +10,7 @@ export interface Props {
   //   setSignUp: any;
 }
 
-const SingIn = () => {
+const SignIn = () => {
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -132,67 +132,4 @@ const SingIn = () => {
   );
 };
 
-export default SingIn;
-
-// function App() {
-//   const user = JSON.parse(localStorage.getItem("user"));
-
-//   const [signUp, setSignUp] = React.useState(false);
-//   const [loggedIn, setLoggedIn] = React.useState(false);
-
-//   React.useEffect(() => {
-//     setLoggedIn(localStorage.getItem("loggedIn"));
-//   }, []);
-
-//   return (
-//     <div
-//       className={`absolute w-full h-full bg-white ${
-//         !loggedIn && "sm:bg-gray-200"
-//       } flex justify-center items-center`}
-//     >
-//       {loggedIn && user && (
-//         <div className="w-[450px] p-5">
-//           <h1 className="text-3xl font-bold text-center">
-//             Hi, @{user.username} 🎉
-//           </h1>
-//           <p className="mt-3 mb-10 text-center">
-//             Congratulations! you've successfully logged in and you've been
-//             directed to the dashboard page.
-//           </p>
-//           <span className="flex justify-center items-center gap-2">
-//             <button
-//               type="button"
-//               className="flex gap-5 items-center bg-zinc-800 text-white/90 py-3 px-5 rounded-md hover:bg-zinc-900"
-//               onClick={() => {
-//                 setLoggedIn(false);
-//                 localStorage.removeItem("loggedIn");
-//               }}
-//             >
-//               <box-icon name="log-out" color="#ffffffeb"></box-icon>
-//               <p>Sign Out</p>
-//             </button>
-//             <button
-//               type="button"
-//               className="bg-rose-100 py-3 px-3 flex justify-center items-center rounded-md hover:bg-rose-200"
-//               onClick={() => {
-//                 setLoggedIn(false);
-//                 localStorage.clear();
-//               }}
-//             >
-//               <box-icon name="trash-alt"></box-icon>
-//             </button>
-//           </span>
-//         </div>
-//       )}
-//       {!loggedIn &&
-//         (signUp ? (
-//           <SignUp setSignUp={setSignUp} />
-//         ) : (
-//           <SignIn setSignUp={setSignUp} setLoggedIn={setLoggedIn} />
-//         ))}
-//     </div>
-//   );
-// }
-
-// const ctx = document.querySelector("#root");
-// ReactDOM.createRoot(ctx).render(<App />);
+export default SignIn;
