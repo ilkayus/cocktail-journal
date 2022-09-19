@@ -9,3 +9,16 @@ export interface ICocktailData {
   ingMeasure: string[];
   drinkID: string;
 }
+
+export interface ISingInForm {
+  email: string;
+  password: string;
+}
+
+export interface ISingUpForm {
+  email: string;
+  password: string;
+  username: string;
+}
+
+export interface ISingInResponse {}
