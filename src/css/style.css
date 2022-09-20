@@ -10,6 +10,11 @@ body {
     url(../img/cocktail-pattern.jpg);
 }
 
+.sign--app {
+  width: 100vw;
+  height: 100vh;
+}
+
 .App {
   display: flex;
   flex-direction: column;

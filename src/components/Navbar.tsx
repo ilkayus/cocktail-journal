@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import HeaderText from "./Header-text";
 import HeaderInput from "./Header-input";
 import { fetchData } from "../services/fetchData";
@@ -19,6 +20,7 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
   const [advancedSearch, setAdvancedSearch] = React.useState(false);
   const [inputData, setInputData] = React.useState("");
 
+  const navigate = useNavigate();
   const handleAdvancedSearchClick = () => {
     console.log(advancedSearch);
     setAdvancedSearch((prev) => !prev);
@@ -86,7 +88,7 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
           src={loginIcon}
           alt="login icon"
           className="btn--login btn--navbar"
-          onClick={() => alert("login")}
+          onClick={() => navigate("/signin")}
         />
       </div>
       <AdvancedSearcModal

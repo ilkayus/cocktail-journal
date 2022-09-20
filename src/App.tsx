@@ -50,32 +50,42 @@ function App() {
   const pageHandler = (data: any, page: number) => {
     return data.slice(page * 3 - 3, page * 3);
   };
+  // {/* <div className="App"> */}
+  // {/* </div> */}
 
   return (
     <Routes>
-      <div className="App">
-        <Route path="/login" element={<SignIn />}>
-          <SignIn />
-        </Route>
-        <Route path="/" element={<></>}>
+      <Route
+        path="/signin"
+        element={
+          <div className="sign--app">
+            <SignIn />
+          </div>
+        }
+      />
+      <Route
+        path="/"
+        element={
           <>
-            <Navbar
-              setRandomClick={setRandomClick}
-              setCocktailData={setCocktailData}
-              setPageNumber={setPageNumber}
-            />
-            <div className="card-container">
-              {cards.length > 0 ? cards : <Loading />}
-            </div>
-            <div className="pagination--container">
-              <Pagination
+            <div className="App">
+              <Navbar
+                setRandomClick={setRandomClick}
+                setCocktailData={setCocktailData}
                 setPageNumber={setPageNumber}
-                pageInfo={[pageNumber, pageMax]}
               />
+              <div className="card-container">
+                {cards.length > 0 ? cards : <Loading />}
+              </div>
+              <div className="pagination--container">
+                <Pagination
+                  setPageNumber={setPageNumber}
+                  pageInfo={[pageNumber, pageMax]}
+                />
+              </div>
             </div>
           </>
-        </Route>
-      </div>
+        }
+      ></Route>
     </Routes>
   );
 }
