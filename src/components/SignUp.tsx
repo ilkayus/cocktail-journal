@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { signUp } from "../services/fetchData";
 import "../css/signIn.css";
 import googleIcon from "../img/google.svg";
 import envelopIcon from "../img/envelop.svg";
@@ -18,10 +19,21 @@ const SignUp = () => {
     email: "",
     username: "",
     password: "",
-    confirmPassword: "",
+    passwordConfirm: "",
   });
 
-  const [response, setResponse] = useState({});
+  const [response, setResponse] = useState({
+    user: {
+      username: "",
+      email: "",
+    },
+    status: "",
+    token: "",
+  });
+
+  useEffect(() => {
+    console.log(response.user, response.status, response.token);
+  }, [response]);
 
   const handleChange = (e: any) => {
     setForm((prev) => ({
@@ -30,10 +42,24 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    console.log("submit signup", form.password, form.email);
+    const res = await signUp(
+      form.email,
+      form.username,
+      form.password,
+      form.passwordConfirm
+    );
+    setResponse(res);
+  };
 
   return (
     <div className="si--container">
+      <button className="si--back-homepage" onClick={() => navigate("/")}>
+        <img src={rightArrowIcon} alt="homepage icon" />
+        <p>Back To The Homepage</p>
+      </button>
       <h1 className="si--h1">Sign Up </h1>
       <form
         method="post"
@@ -62,7 +88,7 @@ const SignUp = () => {
             placeholder="Username"
             className={`si--username-input 
                 ${
-                  form.username.length > 7
+                  form.username.length > 4
                     ? "si--username-input-valid"
                     : form.username.length > 0
                     ? "si--username-input-invalid"
@@ -70,7 +96,7 @@ const SignUp = () => {
                 }
               `}
             required
-            pattern="^[@a-z0-9._]{8,}$"
+            pattern="^[@a-z0-9._]{4,}$"
             value={form.username}
             onChange={handleChange}
           />
@@ -121,26 +147,26 @@ const SignUp = () => {
             onChange={handleChange}
           />
         </label>
-        <label htmlFor="confirmPassword" className="si--username-label">
+        <label htmlFor="passwordConfirm" className="si--username-label">
           <span className="si--username-envelop-icon">
             <img src={lockOpenIcon} alt="password icon" />
           </span>
           <input
             type="password"
-            name="confirmPassword"
+            name="passwordConfirm"
             placeholder="Confirm Password"
             className={`si--username-input 
             ${
-              form.confirmPassword.length > 3
+              form.passwordConfirm.length > 3
                 ? "si--username-input-valid"
-                : form.confirmPassword.length > 0
+                : form.passwordConfirm.length > 0
                 ? "si--username-input-invalid"
                 : "si--username-input-untouched"
             }
           `}
             pattern="^[A-Za-z0-9\W]{3,}$"
             required
-            value={form.confirmPassword}
+            value={form.passwordConfirm}
             onChange={handleChange}
           />
         </label>

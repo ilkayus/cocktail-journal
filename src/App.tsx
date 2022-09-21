@@ -86,10 +86,14 @@ function App() {
                 {cards.length > 0 ? cards : <Loading />}
               </div>
               <div className="pagination--container">
-                <Pagination
-                  setPageNumber={setPageNumber}
-                  pageInfo={[pageNumber, pageMax]}
-                />
+                {cards.length > 0 ? (
+                  <Pagination
+                    setPageNumber={setPageNumber}
+                    pageInfo={[pageNumber, pageMax]}
+                  />
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </>

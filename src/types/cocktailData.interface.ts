@@ -26,3 +26,12 @@ export interface ISignInResponse {
   status: string;
   token: string;
 }
+
+export interface ISignUpResponse {
+  user: {
+    username: string;
+    email: string;
+  };
+  status: string;
+  token: string;
+}

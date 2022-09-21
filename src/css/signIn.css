@@ -111,6 +111,7 @@
 
 .si--submit-button:hover {
   background-color: rgb(24 24 27);
+  cursor: pointer;
 }
 
 .si--create-account {
@@ -128,4 +129,35 @@
   font-size: 1.2rem;
   background-color: transparent;
   cursor: pointer;
+}
+
+.si--back-homepage {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  font-size: 0.9rem;
+  padding: 0.3rem;
+  border: 1px;
+  border-top-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  background-color: rgb(82 82 91);
+  border-color: rgb(63 63 70);
+  color: #ffffff;
+  top: 0px;
+  left: 0px;
+}
+
+.si--back-homepage:hover {
+  background-color: rgb(24 24 27);
+  cursor: pointer;
+}
+
+.si--back-homepage > p {
+  display: inline;
+  padding: 0.2rem;
+  margin: 0;
+}
+
+.si--back-homepage > img {
+  transform: rotate(180deg);
 }

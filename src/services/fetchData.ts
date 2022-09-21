@@ -2,7 +2,7 @@ import { responsiveFontSizes } from "@mui/material";
 import axios from "axios";
 import {
   ICocktailData,
-  ISignInForm,
+  ISignUpResponse,
   ISignInResponse,
 } from "../types/cocktailData.interface";
 
@@ -53,15 +53,15 @@ const signUp = async (
   email: string,
   username: string,
   password: string,
-  confirmPassword: string
-): Promise<ISignInResponse> => {
-  console.log("signUp", username, email, password, confirmPassword);
+  passwordConfirm: string
+): Promise<ISignUpResponse> => {
+  console.log("signUp", username, email, password, passwordConfirm);
   const url = `${BASE_URL}users/signup`;
   const response = await axios.post(url, {
     email: email,
     username: username,
     password: password,
-    confirmPassword: confirmPassword,
+    passwordConfirm: passwordConfirm,
   });
   return response.data;
 };

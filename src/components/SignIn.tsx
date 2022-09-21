@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../services/fetchData";
 import "../css/signIn.css";
@@ -18,11 +18,14 @@ const SignIn = () => {
     email: "",
     password: "",
   });
-
   const [response, setResponse] = useState({
     status: "",
     token: "",
   });
+
+  useEffect(() => {
+    console.log(response.status, response.token);
+  }, [response]);
 
   const handleChange = (e: any) => {
     setForm((prev) => ({
@@ -36,11 +39,14 @@ const SignIn = () => {
     console.log("submit", form.password, form.email);
     const res = await signIn(form.email, form.password);
     setResponse(res);
-    console.log(res);
   };
 
   return (
     <div className="si--container">
+      <button className="si--back-homepage" onClick={() => navigate("/")}>
+        <img src={rightArrowIcon} alt="homepage icon" />
+        <p>Back To The Homepage</p>
+      </button>
       <h1 className="si--h1">Sign In </h1>
       <form
         method="post"
