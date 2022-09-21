@@ -10,15 +10,19 @@ export interface ICocktailData {
   drinkID: string;
 }
 
-export interface ISingInForm {
+export interface ISignInForm {
   email: string;
   password: string;
 }
 
-export interface ISingUpForm {
+export interface ISignUpForm {
   email: string;
-  password: string;
   username: string;
+  password: string;
+  confirmPassword: string;
 }
 
-export interface ISingInResponse {}
+export interface ISignInResponse {
+  status: string;
+  token: string;
+}

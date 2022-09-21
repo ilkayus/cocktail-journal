@@ -9,7 +9,7 @@ import advancedSearchIcon from "../img/advanced-search.svg";
 import randomIcon from "../img/random-thin.svg";
 import enterIcon from "../img/enter-icon.png";
 import searchIcon from "../img/search-1.svg";
-import loginIcon from "../img/login.png";
+import loginIcon from "../img/user-white.svg";
 export interface Props {
   setRandomClick: any;
   setCocktailData: any;

@@ -9,6 +9,7 @@ import renderNew from "./services/renderNew";
 import { ICocktailData } from "./types/cocktailData.interface";
 import Loading from "./components/Loading";
 import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 // import AdvancedSearcModal from "./components/AdvancedSearch";
 // import cocktailObject from "./data/cocktailData.json";
 
@@ -60,6 +61,14 @@ function App() {
         element={
           <div className="sign--app">
             <SignIn />
+          </div>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <div className="sign--app">
+            <SignUp />
           </div>
         }
       />

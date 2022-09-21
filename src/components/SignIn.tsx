@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Navigate, useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { signIn } from "../services/fetchData";
 import "../css/signIn.css";
 import googleIcon from "../img/google.svg";
 import envelopIcon from "../img/envelop.svg";
@@ -12,12 +13,16 @@ export interface Props {
 }
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
-  const [response, setResponse] = useState({});
+  const [response, setResponse] = useState({
+    status: "",
+    token: "",
+  });
 
   const handleChange = (e: any) => {
     setForm((prev) => ({
@@ -26,7 +31,13 @@ const SignIn = () => {
     }));
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    console.log("submit", form.password, form.email);
+    const res = await signIn(form.email, form.password);
+    setResponse(res);
+    console.log(res);
+  };
 
   return (
     <div className="si--container">
@@ -53,21 +64,21 @@ const SignIn = () => {
             <img src={envelopIcon} alt="username icon" />
           </span>
           <input
-            type="text"
-            name="username"
-            placeholder="Username or Email"
+            type="email"
+            name="email"
+            placeholder="Email"
             className={`si--username-input 
                 ${
-                  form.username.length > 7
+                  form.email.length > 7
                     ? "si--username-input-valid"
-                    : form.username.length > 0
+                    : form.email.length > 0
                     ? "si--username-input-invalid"
                     : ""
                 }
               `}
             required
-            pattern="^[@a-z0-9._]{8,}$"
-            value={form.username}
+            pattern="^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+            value={form.email}
             onChange={handleChange}
           />
         </label>
@@ -103,7 +114,7 @@ const SignIn = () => {
           <button
             type="button"
             className="si--create-account-btn"
-            // onClick={() => setSignUp(true)}
+            onClick={() => navigate("/signup")}
           >
             Sign Up
           </button>
