@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import HeaderText from "./Header-text";
 import HeaderInput from "./Header-input";
@@ -9,7 +9,9 @@ import advancedSearchIcon from "../img/advanced-search.svg";
 import randomIcon from "../img/random-thin.svg";
 import enterIcon from "../img/enter-icon.png";
 import searchIcon from "../img/search-1.svg";
-import loginIcon from "../img/user-white.svg";
+import loggedinIcon from "../img/user-white.svg";
+import loginIcon from "../img/user-login.svg";
+import UserContext from "../UserContext";
 export interface Props {
   setRandomClick: any;
   setCocktailData: any;
@@ -17,8 +19,34 @@ export interface Props {
 }
 
 const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
-  const [advancedSearch, setAdvancedSearch] = React.useState(false);
-  const [inputData, setInputData] = React.useState("");
+  const [advancedSearch, setAdvancedSearch] = useState(false);
+  const [inputData, setInputData] = useState("");
+  const { user, setUser } = useContext(UserContext);
+
+  const signOutUser = () => setUser(undefined);
+  const signInOutButton = user ? (
+    <>
+      <div className="navbar--dropdown">
+        <img
+          src={loggedinIcon}
+          alt="login icon"
+          className="btn--login btn--navbar navbar--dropdown--btn"
+          //onClick={() => navigate("/signin")}
+        />
+        <ul className="navbar--dropdown-content">
+          <li>Favorites ⭐</li>
+          <li onClick={signOutUser}>Sing Out 👋🏻</li>
+        </ul>
+      </div>
+    </>
+  ) : (
+    <img
+      src={loginIcon}
+      alt="login icon"
+      className="btn--login btn--navbar"
+      onClick={() => navigate("/signin")}
+    />
+  );
 
   const navigate = useNavigate();
   const handleAdvancedSearchClick = () => {
@@ -44,7 +72,7 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
     }
   };
 
-  const [isSearch, setIsSearch] = React.useState(true);
+  const [isSearch, setIsSearch] = useState(true);
   const handleSearchClick = () => {
     if (!isSearch) {
       searchResults(inputData);
@@ -84,12 +112,7 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
           className="btn--random btn--navbar"
           onClick={randomClick}
         />
-        <img
-          src={loginIcon}
-          alt="login icon"
-          className="btn--login btn--navbar"
-          onClick={() => navigate("/signin")}
-        />
+        {signInOutButton}
       </div>
       <AdvancedSearcModal
         advancedSearch={advancedSearch}

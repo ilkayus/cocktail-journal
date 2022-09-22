@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../services/fetchData";
+import { ISignInResponse } from "../types/cocktailData.interface";
 import "../css/signIn.css";
 import googleIcon from "../img/google.svg";
 import envelopIcon from "../img/envelop.svg";
 import rightArrowIcon from "../img/right-arrow.svg";
 import lockOpenIcon from "../img/lock-open.svg";
+import UserContext from "../UserContext";
 
 export interface Props {
   //   setLoggedIn: boolean;
@@ -14,18 +16,18 @@ export interface Props {
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-  const [response, setResponse] = useState({
-    status: "",
-    token: "",
-  });
 
   useEffect(() => {
-    console.log(response.status, response.token);
-  }, [response]);
+    if (user) {
+      console.log(user);
+      navigate("/");
+    }
+  }, [user]);
 
   const handleChange = (e: any) => {
     setForm((prev) => ({
@@ -36,9 +38,8 @@ const SignIn = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("submit", form.password, form.email);
     const res = await signIn(form.email, form.password);
-    setResponse(res);
+    setUser(res);
   };
 
   return (

@@ -1,8 +1,6 @@
-import { responsiveFontSizes } from "@mui/material";
 import axios from "axios";
 import {
   ICocktailData,
-  ISignUpResponse,
   ISignInResponse,
 } from "../types/cocktailData.interface";
 
@@ -12,11 +10,24 @@ const BASE_URL = "http://localhost:9000/api/v1/";
 const fetchData = async (
   fetchString: string,
   fetchInfo: string
+  // user?: ISignInResponse | undefined
 ): Promise<ICocktailData> => {
   console.log(fetchString, fetchInfo, urlBuilder(fetchString, fetchInfo));
+  const config = {}; //CheckUser(user);
   const url = `${BASE_URL}${urlBuilder(fetchString, fetchInfo)}`;
-  const response = await axios.get(url);
+  const response = await axios.get(url, config);
   return response.data;
+};
+
+const CheckUser = (user: ISignInResponse | undefined): any => {
+  const config = user
+    ? {
+        headers: {
+          Authorization: "Bearer " + user.token,
+        },
+      }
+    : {};
+  return config;
 };
 
 const urlBuilder = (fetchString: string, fetchInfo: string): string => {
@@ -40,7 +51,6 @@ const signIn = async (
   email: string,
   password: string
 ): Promise<ISignInResponse> => {
-  console.log("signIn", email, password);
   const url = `${BASE_URL}users/signin`;
   const response = await axios.post(url, {
     email: email,
@@ -54,8 +64,7 @@ const signUp = async (
   username: string,
   password: string,
   passwordConfirm: string
-): Promise<ISignUpResponse> => {
-  console.log("signUp", username, email, password, passwordConfirm);
+): Promise<ISignInResponse> => {
   const url = `${BASE_URL}users/signup`;
   const response = await axios.post(url, {
     email: email,

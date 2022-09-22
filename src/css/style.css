@@ -58,6 +58,44 @@ body {
   margin-right: min(8px, 1vw);
 }
 
+.navbar--dropdown {
+  position: relative;
+}
+.navbar--dropdown:hover .navbar--dropdown-content {
+  display: flex;
+  flex-direction: column;
+}
+.navbar--dropdown-content {
+  display: none;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: min(56px, 10vw);
+  left: calc(-150px + min(56px, 10vw));
+  background-color: #f1f1f1;
+  width: 150px;
+  box-shadow: 0px 8px 16px 8px rgba(95, 158, 160, 0.466);
+  background-color: rgba(26, 22, 22, 0.925);
+  list-style: none;
+  border-radius: 0.5rem;
+}
+.navbar--dropdown-content > li {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+  padding: 4px;
+  padding-left: 10px;
+  height: 3rem;
+  cursor: pointer;
+  width: 100%;
+}
+.navbar--dropdown-content > li:hover {
+  background-color: rgba(95, 158, 160, 0.322);
+  transition: 0.5s ease-in;
+}
+
 .btn--navbar:hover {
   cursor: pointer;
 }
@@ -119,14 +157,20 @@ body {
   height: 17vh;
   transition: all 0.5s ease;
 }
-
+.cocktail-image-container {
+  position: relative;
+}
 .cocktail-image {
   width: min(22vh, 38vw);
   height: min(25vh, 40vw);
   margin: 1vh;
   border-radius: 15px;
 }
-
+.cocktail--favorited {
+  position: absolute;
+  padding: 15px;
+  cursor: pointer;
+}
 .cocktail-info-side {
   flex-grow: 2;
   display: flex;

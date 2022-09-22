@@ -1,7 +1,9 @@
 // import { log } from "console";
-// import { useState } from "react";
+import { useContext } from "react";
 import { fetchData } from "../services/fetchData";
 import renderNew from "../services/renderNew";
+import UserContext from "../UserContext";
+import starIcon from "../img/star.svg";
 
 export interface Props {
   imagePreview: string;
@@ -34,6 +36,7 @@ const Card = ({
   selectedCard,
   drinkID,
 }: Props) => {
+  const { user } = useContext(UserContext);
   let ingredientList: JSX.Element[] = [];
   let meausermentList: JSX.Element[] = [];
   for (let i = 0; i < 15; i++) {
@@ -91,6 +94,15 @@ const Card = ({
       onClick={addAnimation}
     >
       <div className="cocktail-image-container">
+        {user ? (
+          <img
+            className="cocktail--favorited"
+            src={starIcon}
+            alt="favorited icon"
+          />
+        ) : (
+          ""
+        )}
         <img
           src={imagePreview}
           alt="cocktail thumbnail"

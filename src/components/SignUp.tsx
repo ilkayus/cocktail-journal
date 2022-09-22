@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../services/fetchData";
 import "../css/signIn.css";
@@ -7,6 +7,7 @@ import envelopIcon from "../img/envelop.svg";
 import userIcon from "../img/user.svg";
 import rightArrowIcon from "../img/right-arrow.svg";
 import lockOpenIcon from "../img/lock-open.svg";
+import UserContext from "../UserContext";
 
 export interface Props {
   //   setLoggedIn: boolean;
@@ -15,6 +16,7 @@ export interface Props {
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const [form, setForm] = useState({
     email: "",
     username: "",
@@ -22,18 +24,12 @@ const SignUp = () => {
     passwordConfirm: "",
   });
 
-  const [response, setResponse] = useState({
-    user: {
-      username: "",
-      email: "",
-    },
-    status: "",
-    token: "",
-  });
-
   useEffect(() => {
-    console.log(response.user, response.status, response.token);
-  }, [response]);
+    if (user) {
+      console.log(user);
+      navigate("/");
+    }
+  }, [user]);
 
   const handleChange = (e: any) => {
     setForm((prev) => ({
@@ -44,14 +40,13 @@ const SignUp = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("submit signup", form.password, form.email);
     const res = await signUp(
       form.email,
       form.username,
       form.password,
       form.passwordConfirm
     );
-    setResponse(res);
+    setUser(res);
   };
 
   return (

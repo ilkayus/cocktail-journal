@@ -21,16 +21,11 @@ export interface ISignUpForm {
   password: string;
   confirmPassword: string;
 }
-
 export interface ISignInResponse {
-  status: string;
-  token: string;
-}
-
-export interface ISignUpResponse {
   user: {
     username: string;
     email: string;
+    photo?: string;
   };
   status: string;
   token: string;

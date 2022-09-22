@@ -6,10 +6,11 @@ import Card from "./components/Card";
 import Pagination from "./components/Pagination";
 import { fetchData } from "./services/fetchData";
 import renderNew from "./services/renderNew";
-import { ICocktailData } from "./types/cocktailData.interface";
+import { ICocktailData, ISignInResponse } from "./types/cocktailData.interface";
 import Loading from "./components/Loading";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import UserContext from "./UserContext";
 // import AdvancedSearcModal from "./components/AdvancedSearch";
 // import cocktailObject from "./data/cocktailData.json";
 
@@ -20,6 +21,7 @@ function App() {
   const [[pageNumber, pageMax], setPageNumber] = useState([1, 1]);
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [cards, setCards] = useState<JSX.Element[]>([]);
+  const [user, setUser] = useState<ISignInResponse>();
 
   useEffect(() => {
     fetchData("homepage", "").then((data) =>
@@ -53,53 +55,54 @@ function App() {
   };
   // {/* <div className="App"> */}
   // {/* </div> */}
+  const homepage = (
+    <>
+      <div className="App">
+        <Navbar
+          setRandomClick={setRandomClick}
+          setCocktailData={setCocktailData}
+          setPageNumber={setPageNumber}
+        />
+        <div className="card-container">
+          {cards.length > 0 ? cards : <Loading />}
+        </div>
+        <div className="pagination--container">
+          {cards.length > 0 ? (
+            <Pagination
+              setPageNumber={setPageNumber}
+              pageInfo={[pageNumber, pageMax]}
+            />
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+    </>
+  );
 
   return (
-    <Routes>
-      <Route
-        path="/signin"
-        element={
-          <div className="sign--app">
-            <SignIn />
-          </div>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
-          <div className="sign--app">
-            <SignUp />
-          </div>
-        }
-      />
-      <Route
-        path="/"
-        element={
-          <>
-            <div className="App">
-              <Navbar
-                setRandomClick={setRandomClick}
-                setCocktailData={setCocktailData}
-                setPageNumber={setPageNumber}
-              />
-              <div className="card-container">
-                {cards.length > 0 ? cards : <Loading />}
-              </div>
-              <div className="pagination--container">
-                {cards.length > 0 ? (
-                  <Pagination
-                    setPageNumber={setPageNumber}
-                    pageInfo={[pageNumber, pageMax]}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
+    <UserContext.Provider value={{ user, setUser }}>
+      <Routes>
+        <Route
+          path="/signin"
+          element={
+            <div className="sign--app">
+              <SignIn />
             </div>
-          </>
-        }
-      ></Route>
-    </Routes>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <div className="sign--app">
+              <SignUp />
+            </div>
+          }
+        />
+        <Route path="/" element={homepage}></Route>
+        <Route path="/cocktail-journal" element={homepage}></Route>
+      </Routes>
+    </UserContext.Provider>
   );
 }
 
