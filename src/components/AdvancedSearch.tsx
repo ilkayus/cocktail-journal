@@ -8,6 +8,7 @@ import categoriesData from "../data/categories.json";
 import typeData from "../data/typeAlcoholic.json";
 import { fetchData } from "../services/fetchData";
 import renderNew from "../services/renderNew";
+import UserContext from "../UserContext";
 
 const style = {
   position: "absolute" as "absolute",
@@ -43,6 +44,7 @@ const AdvancedSearcModal = ({
   const [ingredientsValue, setIngredientsValue] = React.useState<
     { title: string }[] | null
   >(null);
+  const { user } = React.useContext(UserContext);
   const handleBringClick = async () => {
     const type = typeValue?.title.toString();
     const category = categoriesValue?.title.toString();
@@ -51,7 +53,8 @@ const AdvancedSearcModal = ({
     });
     fetchData(
       "search",
-      `${type + ":" + category + ":" + ings?.join(",")}`
+      `${type + ":" + category + ":" + ings?.join(",")}`,
+      user
     ).then((data) => renderNew(setCocktailData, setPageNumber, data));
     setTypeValue(null);
     setCategoriesValue(null);

@@ -9,25 +9,14 @@ const BASE_URL = "http://localhost:9000/api/v1/";
 
 const fetchData = async (
   fetchString: string,
-  fetchInfo: string
-  // user?: ISignInResponse | undefined
+  fetchInfo: string,
+  user?: ISignInResponse | undefined
 ): Promise<ICocktailData> => {
   console.log(fetchString, fetchInfo, urlBuilder(fetchString, fetchInfo));
-  const config = {}; //CheckUser(user);
+  const config = CheckUser(user);
   const url = `${BASE_URL}${urlBuilder(fetchString, fetchInfo)}`;
   const response = await axios.get(url, config);
   return response.data;
-};
-
-const CheckUser = (user: ISignInResponse | undefined): any => {
-  const config = user
-    ? {
-        headers: {
-          Authorization: "Bearer " + user.token,
-        },
-      }
-    : {};
-  return config;
 };
 
 const urlBuilder = (fetchString: string, fetchInfo: string): string => {
@@ -75,4 +64,34 @@ const signUp = async (
   return response.data;
 };
 
-export { fetchData, signIn, signUp };
+const CheckUser = (user: ISignInResponse | undefined): any => {
+  const config = user
+    ? {
+        headers: {
+          Authorization: "Bearer " + user.token,
+        },
+      }
+    : {};
+  return config;
+};
+const setHeader = (token: string | undefined): any => {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
+  return config;
+};
+const addToFavorites = async (
+  token: string | undefined,
+  id: string,
+  isFav: boolean
+) => {
+  const addRemove = isFav ? "removefavs" : "addfavs";
+  const url = `${BASE_URL}${addRemove}/${id}`;
+  const response = await axios.patch(url, {}, setHeader(token));
+  console.log(response);
+  return response;
+};
+
+export { fetchData, signIn, signUp, addToFavorites };

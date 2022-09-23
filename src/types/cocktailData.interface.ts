@@ -8,6 +8,9 @@ export interface ICocktailData {
   ingredients: string[];
   ingMeasure: string[];
   drinkID: string;
+  _id: string;
+  timesfavorite: number;
+  isfavorite: boolean;
 }
 
 export interface ISignInForm {
@@ -22,11 +25,10 @@ export interface ISignUpForm {
   confirmPassword: string;
 }
 export interface ISignInResponse {
-  user: {
-    username: string;
-    email: string;
-    photo?: string;
-  };
+  _id: string;
+  username: string;
+  email: string;
+  photo?: string;
   status: string;
   token: string;
 }

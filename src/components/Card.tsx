@@ -1,9 +1,10 @@
 // import { log } from "console";
-import { useContext } from "react";
-import { fetchData } from "../services/fetchData";
+import { useContext, useState, useEffect } from "react";
+import { fetchData, addToFavorites } from "../services/fetchData";
 import renderNew from "../services/renderNew";
 import UserContext from "../UserContext";
 import starIcon from "../img/star.svg";
+import starAnimatedIcon from "../img/star-animated.svg";
 
 export interface Props {
   imagePreview: string;
@@ -18,6 +19,9 @@ export interface Props {
   setPageNumber: React.Dispatch<React.SetStateAction<[number, number]>>;
   setSelectedCard: React.Dispatch<React.SetStateAction<string | null>>;
   drinkID: string;
+  _id: string;
+  favorites: string[] | undefined;
+  timesfavorite: number | undefined;
   selectedCard: string | null;
 }
 
@@ -35,8 +39,18 @@ const Card = ({
   setSelectedCard,
   selectedCard,
   drinkID,
+  _id,
+  favorites,
+  timesfavorite,
 }: Props) => {
+  const [isFavorite, setFavorite] = useState(false);
   const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    const id = user ? user._id : "";
+    setFavorite(!favorites ? false : favorites.includes(id) ? true : false);
+  }, []);
+
   let ingredientList: JSX.Element[] = [];
   let meausermentList: JSX.Element[] = [];
   for (let i = 0; i < 15; i++) {
@@ -70,6 +84,9 @@ const Card = ({
   };
 
   const addAnimation = (event: any) => {
+    if (event.target.id === "fav-button") {
+      return addToFavs();
+    }
     if (selectedCard === drinkID) {
       setSelectedCard(null);
       console.log("Card animation return");
@@ -77,6 +94,11 @@ const Card = ({
     }
     setSelectedCard(drinkID);
     console.log("card animation added");
+  };
+
+  const addToFavs = () => {
+    addToFavorites(user?.token, _id, isFavorite);
+    setFavorite((prev) => !prev);
   };
 
   const animation =
@@ -93,16 +115,17 @@ const Card = ({
       className={"cocktail-card " + animation}
       onClick={addAnimation}
     >
+      {user ? (
+        <img
+          className="cocktail--favorited"
+          src={isFavorite ? starAnimatedIcon : starIcon}
+          alt="favorited icon"
+          id="fav-button"
+        />
+      ) : (
+        ""
+      )}
       <div className="cocktail-image-container">
-        {user ? (
-          <img
-            className="cocktail--favorited"
-            src={starIcon}
-            alt="favorited icon"
-          />
-        ) : (
-          ""
-        )}
         <img
           src={imagePreview}
           alt="cocktail thumbnail"

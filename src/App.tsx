@@ -30,6 +30,7 @@ function App() {
   }, [randomClick]);
 
   useEffect(() => {
+    console.log(cocktailData);
     const cardsData = pageHandler(cocktailData, pageNumber);
     const ids = new Set<string | null>();
     cardsData.map((item: any) => ids.add(item.drinkID));

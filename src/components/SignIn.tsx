@@ -39,6 +39,7 @@ const SignIn = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const res = await signIn(form.email, form.password);
+    console.log(res);
     setUser(res);
   };
 

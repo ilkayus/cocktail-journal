@@ -78,6 +78,7 @@ body {
   background-color: rgba(26, 22, 22, 0.925);
   list-style: none;
   border-radius: 0.5rem;
+  z-index: 1;
 }
 .navbar--dropdown-content > li {
   display: flex;
@@ -147,19 +148,18 @@ body {
   color: white;
   transition: all 0.5s ease;
   overflow: hidden;
+  position: relative;
 }
 
 .cocktail-card-animation {
-  height: 47vh;
+  height: 64vh;
   transition: all 0.5s ease;
 }
 .cocktail-card-animation-hidden {
-  height: 17vh;
+  height: 8.5vh;
   transition: all 0.5s ease;
 }
-.cocktail-image-container {
-  position: relative;
-}
+
 .cocktail-image {
   width: min(22vh, 38vw);
   height: min(25vh, 40vw);
@@ -168,9 +168,22 @@ body {
 }
 .cocktail--favorited {
   position: absolute;
-  padding: 15px;
+  bottom: 0;
+  right: 0;
+  padding: 7px;
   cursor: pointer;
+  background-color: rgba(204, 203, 199, 0.425);
+  border-top-left-radius: 15px;
 }
+.cocktail--favorited:hover {
+  transition: background 2s ease-in;
+  background: linear-gradient(
+    to bottom right,
+    rgba(71, 23, 9, 0.72),
+    rgba(241, 7, 7, 0.83)
+  );
+}
+
 .cocktail-info-side {
   flex-grow: 2;
   display: flex;
