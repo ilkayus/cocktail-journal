@@ -1,20 +1,29 @@
 {
   "files": {
-    "main.css": "/cocktail-journal/static/css/main.d820aaa4.css",
-    "main.js": "/cocktail-journal/static/js/main.66e46a57.js",
+    "main.css": "/cocktail-journal/static/css/main.d1cf4db1.css",
+    "main.js": "/cocktail-journal/static/js/main.d0be1a6c.js",
     "static/js/787.a6d36676.chunk.js": "/cocktail-journal/static/js/787.a6d36676.chunk.js",
     "static/media/cocktail-pattern.jpg": "/cocktail-journal/static/media/cocktail-pattern.6a73da1f9825cc860306.jpg",
     "static/media/loading-trans.gif": "/cocktail-journal/static/media/loading-trans.50bf2e9e8d0a588e0370.gif",
     "static/media/search-1.svg": "/cocktail-journal/static/media/search-1.de87c81f5887a1c02efbeafb98a1bda5.svg",
     "static/media/advanced-search.svg": "/cocktail-journal/static/media/advanced-search.ed8f7061579903f479d808a6d6e6f562.svg",
     "index.html": "/cocktail-journal/index.html",
+    "static/media/star.svg": "/cocktail-journal/static/media/star.11b30900fe49bb556ee5cb40a653b129.svg",
     "static/media/random-thin.svg": "/cocktail-journal/static/media/random-thin.0e37b314a5ee9300947291b1da7d88c5.svg",
-    "main.d820aaa4.css.map": "/cocktail-journal/static/css/main.d820aaa4.css.map",
-    "main.66e46a57.js.map": "/cocktail-journal/static/js/main.66e46a57.js.map",
+    "static/media/google.svg": "/cocktail-journal/static/media/google.87702cff6eb53c6bc27d836430f1be79.svg",
+    "static/media/star-animated.svg": "/cocktail-journal/static/media/star-animated.3d3514413fa60a25307c0071a87b5df2.svg",
+    "static/media/envelop.svg": "/cocktail-journal/static/media/envelop.e4aaf64fc8dbc148d059d56af8117f65.svg",
+    "static/media/lock-open.svg": "/cocktail-journal/static/media/lock-open.16ac384ce97fccbcb4a78767dc95fda3.svg",
+    "static/media/user-login.svg": "/cocktail-journal/static/media/user-login.a915ecf2f77f54722e3bf1ad4accedd9.svg",
+    "static/media/user-white.svg": "/cocktail-journal/static/media/user-white.d26411a91024b2748737d72c15b2712e.svg",
+    "static/media/user.svg": "/cocktail-journal/static/media/user.9d53aa1dcb6c8d5bf2a061fccbe3827d.svg",
+    "static/media/right-arrow.svg": "/cocktail-journal/static/media/right-arrow.80164bbb6c519acc5e2cae19fd2aba53.svg",
+    "main.d1cf4db1.css.map": "/cocktail-journal/static/css/main.d1cf4db1.css.map",
+    "main.d0be1a6c.js.map": "/cocktail-journal/static/js/main.d0be1a6c.js.map",
     "787.a6d36676.chunk.js.map": "/cocktail-journal/static/js/787.a6d36676.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d820aaa4.css",
-    "static/js/main.66e46a57.js"
+    "static/css/main.d1cf4db1.css",
+    "static/js/main.d0be1a6c.js"
   ]
 }
