@@ -1,6 +1,11 @@
 // import { log } from "console";
 import { useContext, useState, useEffect } from "react";
-import { fetchData, addToFavorites } from "../services/fetchData";
+import {
+  fetchData,
+  addToFavorites,
+  addComment,
+  getComments,
+} from "../services/fetchData";
 import renderNew from "../services/renderNew";
 import UserContext from "../UserContext";
 import starIcon from "../img/star.svg";
@@ -102,25 +107,51 @@ const Card = ({
     }
     setSelectedCard(drinkID);
     //   console.log("card animation added");
-    if (user) getComments();
+    if (user)
+      getComments(_id, user.token).then((data) =>
+        setComments(
+          data.data.data.coms.map((el: any, index: any) => {
+            return (
+              <Comment
+                key={index}
+                username={el.username}
+                userPhoto={el.userPhoto ? el.userPhoto : undefined}
+                commentText={el.commentText}
+              />
+            );
+          })
+        )
+      ); //getCommentsSahte();
   };
 
   const handleCommentInputChange = (event: any) => {
     setComment(event.target.value);
   };
-  const handleCommentInputSubmit = () => {};
-  const handleCommentButton = () => {};
-
-  const getComments = () => {
-    const arr = new Array(10).fill(0);
-    console.log(arr);
-    setComments(
-      arr.map((el, index) => {
-        return <Comment key={index} />;
-      })
-    );
-    // console.log(comments);
+  const handleCommentInputSubmit = (event: any) => {
+    if (event.key === "Enter") {
+      if (comment.length > 0 && user) {
+        addComment(user.token, _id, comment).then((data) => console.log(data));
+        setComment("");
+      }
+    }
   };
+  const handleCommentButton = () => {
+    if (comment.length > 0 && user) {
+      addComment(user.token, _id, comment).then((data) => console.log(data));
+      setComment("");
+    }
+  };
+
+  // const getCommentsSahte = () => {
+  //   const arr = new Array(10).fill(0);
+  //   console.log(arr);
+  //   setComments(
+  //     arr.map((el, index) => {
+  //       return <Comment key={index} />;
+  //     })
+  //   );
+  //   // console.log(comments);
+  // };
 
   const addToFavs = () => {
     addToFavorites(user?.token, _id, isFavorite);
@@ -205,7 +236,7 @@ const Card = ({
         <button
           className={
             "comment--button " +
-            (comment.length > 0 ? "comment--button--active" : "")
+            (comment.length > 0 && user ? "comment--button--active" : "")
           }
           onClick={handleCommentButton}
         >

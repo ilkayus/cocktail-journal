@@ -21,6 +21,7 @@ export interface Props {
 const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
   const [advancedSearch, setAdvancedSearch] = useState(false);
   const [inputData, setInputData] = useState("");
+  const [isSearch, setIsSearch] = useState(true);
   const { user, setUser } = useContext(UserContext);
 
   const signOutUser = () => setUser(undefined);
@@ -76,7 +77,6 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
     }
   };
 
-  const [isSearch, setIsSearch] = useState(true);
   const handleSearchClick = () => {
     if (!isSearch) {
       searchResults(inputData);

@@ -4,11 +4,12 @@ import {
   ISignInResponse,
 } from "../types/cocktailData.interface";
 
-//const BASE_URL = "http://localhost:9000/api/v1/";
-const BASE_URL =
-  process.env.ENV === "development"
-    ? "http://localhost:9000/api/v1/"
-    : "https://cocktail-journal-server.herokuapp.com/api/v1/";
+const BASE_URL = "http://localhost:9000/api/v1/";
+//const BASE_URL = "https://cocktail-journal-server.herokuapp.com/api/v1/";
+// const BASE_URL =
+//   process.env.ENV === "development"
+//     ? "http://localhost:9000/api/v1/"
+//     : "https://cocktail-journal-server.herokuapp.com/api/v1/";
 
 const fetchData = async (
   fetchString: string,
@@ -93,10 +94,44 @@ const addToFavorites = async (
 ) => {
   const addRemove = isFav ? "removefavs" : "addfavs";
   const url = `${BASE_URL}${addRemove}/${id}`;
-  console.log(url);
+  // console.log(url);
   const response = await axios.patch(url, {}, setHeader(token));
   console.log(response);
   return response;
 };
 
-export { fetchData, signIn, signUp, addToFavorites };
+const getComments = async (id: string, token: string | undefined) => {
+  const url = `${BASE_URL}comments/${id}`;
+  const response = await axios.get(url, setHeader(token));
+  console.log(response);
+  return response;
+};
+
+const addComment = async (
+  token: string | undefined,
+  id: string,
+  comment: string
+) => {
+  const url = `${BASE_URL}addcomment/${id}`;
+  console.log(url);
+  const response = await axios.post(url, { data: comment }, setHeader(token));
+  console.log(response);
+  return response;
+};
+
+const removeComment = async (token: string | undefined, id: string) => {
+  const url = `${BASE_URL}removecomment/${id}`;
+  const response = await axios.delete(url, setHeader(token));
+  console.log(response);
+  return response;
+};
+
+export {
+  fetchData,
+  signIn,
+  signUp,
+  addToFavorites,
+  addComment,
+  removeComment,
+  getComments,
+};

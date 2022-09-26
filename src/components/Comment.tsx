@@ -1,18 +1,22 @@
 import userIcon from "../img/user.svg";
-
-const Comment = () => {
+export interface Props {
+  username: string;
+  userPhoto: string | undefined;
+  commentText: string;
+}
+const Comment = ({ username, userPhoto, commentText }: Props) => {
   return (
     <div className="comment--container">
       <div className="comment--head">
-        <img src={userIcon} alt="user icon" className="comment--image" />
-        <h4 className="comment--username">Username</h4>
+        <img
+          src={userPhoto ? userPhoto : userIcon}
+          alt="user icon"
+          className="comment--image"
+        />
+        <h4 className="comment--username">{username}</h4>
       </div>
       <div>
-        <p className="comment--comment">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-          voluptatum earum animi, perspiciatis repellendus tenetur sequi
-          suscipit saepe dolor nemo facere eum ex.
-        </p>
+        <p className="comment--comment">{commentText}</p>
       </div>
     </div>
   );
