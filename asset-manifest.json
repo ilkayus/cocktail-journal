@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/cocktail-journal/static/css/main.3d6aa779.css",
-    "main.js": "/cocktail-journal/static/js/main.d84ce16a.js",
+    "main.js": "/cocktail-journal/static/js/main.bd8eb7f9.js",
     "static/js/787.a6d36676.chunk.js": "/cocktail-journal/static/js/787.a6d36676.chunk.js",
     "static/media/cocktail-pattern.jpg": "/cocktail-journal/static/media/cocktail-pattern.6a73da1f9825cc860306.jpg",
     "static/media/loading-trans.gif": "/cocktail-journal/static/media/loading-trans.50bf2e9e8d0a588e0370.gif",
@@ -19,11 +19,11 @@
     "static/media/user.svg": "/cocktail-journal/static/media/user.9d53aa1dcb6c8d5bf2a061fccbe3827d.svg",
     "static/media/right-arrow.svg": "/cocktail-journal/static/media/right-arrow.80164bbb6c519acc5e2cae19fd2aba53.svg",
     "main.3d6aa779.css.map": "/cocktail-journal/static/css/main.3d6aa779.css.map",
-    "main.d84ce16a.js.map": "/cocktail-journal/static/js/main.d84ce16a.js.map",
+    "main.bd8eb7f9.js.map": "/cocktail-journal/static/js/main.bd8eb7f9.js.map",
     "787.a6d36676.chunk.js.map": "/cocktail-journal/static/js/787.a6d36676.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3d6aa779.css",
-    "static/js/main.d84ce16a.js"
+    "static/js/main.bd8eb7f9.js"
   ]
 }
