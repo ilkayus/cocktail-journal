@@ -119,7 +119,7 @@ const Card = ({
         return <Comment key={index} />;
       })
     );
-    console.log(comments);
+    // console.log(comments);
   };
 
   const addToFavs = () => {
@@ -196,7 +196,11 @@ const Card = ({
           value={comment}
           onChange={handleCommentInputChange}
           onKeyDown={handleCommentInputSubmit}
-          placeholder="Type Your Comment ..."
+          placeholder={
+            user
+              ? "Type Your Comment ..."
+              : "Please sign in to write a comment."
+          }
         />
         <button
           className={
