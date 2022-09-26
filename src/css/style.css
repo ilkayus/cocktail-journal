@@ -24,7 +24,7 @@ body {
 }
 
 .navbar {
-  height: clamp(70px, 12vw, 35px);
+  height: clamp(30px, 10vw, 70px);
   padding: 0px min(36px, 3vw);
   box-shadow: 0px 2.98px 7.45px rgba(0, 0, 0, 0.5);
   text-align: center;
@@ -41,7 +41,7 @@ body {
 
 .navbar-header {
   color: white;
-  font-size: clamp(0.5rem, 4vw, 1.7rem);
+  font-size: clamp(0.4rem, 3vw, 1.7rem);
 }
 .navbar--buttons {
   display: flex;
@@ -136,8 +136,9 @@ body {
 }
 .cocktail-card {
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
-  flex-direction: row;
+  /* flex-direction: row; */
   align-items: flex-start;
   margin: 0;
   margin-bottom: 10px;
@@ -159,7 +160,10 @@ body {
   height: 8.5vh;
   transition: all 0.5s ease;
 }
-
+.cocktail-card-content {
+  display: flex;
+  flex-direction: row;
+}
 .cocktail-image {
   width: min(22vh, 38vw);
   height: min(25vh, 40vw);
@@ -185,7 +189,8 @@ body {
 }
 
 .cocktail-info-side {
-  flex-grow: 2;
+  /* flex-grow: 2; */
+  height: 27vh;
   display: flex;
   font-size: clamp(0.5rem, 3vw, 1.2rem);
   flex-direction: column;
@@ -240,14 +245,14 @@ body {
   margin: 10px;
   text-transform: uppercase;
   font-weight: 400;
-  font-size: 1em;
+  font-size: 0.7em;
   align-items: center;
 }
 .cocktail--glass {
   margin: 10px;
   text-transform: uppercase;
   font-weight: 400;
-  font-size: 1em;
+  font-size: 0.7em;
   align-items: center;
 }
 
@@ -323,4 +328,95 @@ body {
   height: 40px;
   width: 90px;
   margin-top: 15px !important;
+}
+
+.no--data--conteiner {
+  position: absolute;
+  z-index: 1;
+  background-color: #f1f1f1ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(700px, 100%);
+  height: clamp(30px, 10vw, 70px);
+  top: clamp(50px, 10vw, 70px);
+  margin-top: 10px;
+  border-radius: 15px;
+}
+
+.comment--container {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 15px;
+}
+
+.comment--head {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.comment--image {
+  height: 36px;
+  width: 36px;
+  background-color: #f1f1f1d1;
+  padding: 3px;
+  border-radius: 50%;
+}
+
+.comment--username {
+  padding-left: 10px;
+  margin: 0;
+}
+
+.comment--comment {
+  font-size: 0.9em;
+  text-align: left;
+  padding-left: 42px;
+  margin: 3px;
+}
+
+.cocktail--card--comments {
+  padding-top: 10px;
+  overflow-y: scroll;
+}
+
+.cocktail--card--comment-input {
+  padding: 15px 25px;
+  /* height: clamp(40px, 12vw, 90px); */
+  width: min(700px, 100%);
+  display: flex;
+}
+
+.cocktail--card--comment-input > input {
+  font-size: 1.1em;
+  background: transparent;
+  color: white;
+  border: none;
+  width: 85%;
+  height: 45px;
+}
+
+.cocktail--card--comment-input > input::placeholder {
+  color: rgba(255, 255, 255, 0.719);
+}
+
+.comment--button {
+  margin-left: auto;
+  margin-right: 10px;
+  border-radius: 25px;
+  background-color: rgba(99, 189, 192, 0.5);
+  color: white;
+  font-weight: 400;
+  font-size: 1.1em;
+  padding: 7px 15px;
+  cursor: pointer;
+}
+
+.comment--button--active {
+  background-color: rgba(99, 189, 192, 0.9);
+}
+
+*:focus {
+  outline: none;
 }

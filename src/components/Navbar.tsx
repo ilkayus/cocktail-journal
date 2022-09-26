@@ -24,6 +24,11 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
   const { user, setUser } = useContext(UserContext);
 
   const signOutUser = () => setUser(undefined);
+  const getUserFavs = () => {
+    fetchData("favorites", "", user).then((data) =>
+      renderNew(setCocktailData, setPageNumber, data)
+    );
+  };
   const signInOutButton = user ? (
     <>
       <div className="navbar--dropdown">
@@ -34,7 +39,7 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
           //onClick={() => navigate("/signin")}
         />
         <ul className="navbar--dropdown-content">
-          <li>Favorites ⭐</li>
+          <li onClick={getUserFavs}>Favorites ⭐</li>
           <li onClick={signOutUser}>Sing Out 👋🏻</li>
         </ul>
       </div>
@@ -57,7 +62,6 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
   const handleChange = (event: any) => {
     setInputData(event.target.value);
   };
-
   const searchResults = async (searchText: string) => {
     fetchData("cocktailName", searchText).then((data) =>
       renderNew(setCocktailData, setPageNumber, data)

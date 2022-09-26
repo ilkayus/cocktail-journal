@@ -4,17 +4,20 @@ import {
   ISignInResponse,
 } from "../types/cocktailData.interface";
 
-// const BASE_URL = "https://cocktail-journal-server.herokuapp.com/api/v1/";
 const BASE_URL = "http://localhost:9000/api/v1/";
+// const BASE_URL =
+//   process.env.ENV === "development"
+//     ? "http://localhost:9000/api/v1/"
+//     : "https://cocktail-journal-server.herokuapp.com/api/v1/";
 
 const fetchData = async (
   fetchString: string,
   fetchInfo: string,
   user?: ISignInResponse | undefined
 ): Promise<ICocktailData> => {
-  console.log(fetchString, fetchInfo, urlBuilder(fetchString, fetchInfo));
   const config = CheckUser(user);
   const url = `${BASE_URL}${urlBuilder(fetchString, fetchInfo)}`;
+  console.log(url);
   const response = await axios.get(url, config);
   return response.data;
 };
@@ -33,6 +36,7 @@ const urlBuilder = (fetchString: string, fetchInfo: string): string => {
     const searchString = fetchInfo.split(":");
     return `${fetchString}/${searchString[0]}/${searchString[1]}/${searchString[2]}`;
   }
+  if (fetchString === "favorites") return "favorites";
   return "";
 };
 
@@ -89,6 +93,7 @@ const addToFavorites = async (
 ) => {
   const addRemove = isFav ? "removefavs" : "addfavs";
   const url = `${BASE_URL}${addRemove}/${id}`;
+  console.log(url);
   const response = await axios.patch(url, {}, setHeader(token));
   console.log(response);
   return response;

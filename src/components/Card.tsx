@@ -5,6 +5,7 @@ import renderNew from "../services/renderNew";
 import UserContext from "../UserContext";
 import starIcon from "../img/star.svg";
 import starAnimatedIcon from "../img/star-animated.svg";
+import Comment from "./Comment";
 
 export interface Props {
   imagePreview: string;
@@ -44,7 +45,9 @@ const Card = ({
   timesfavorite,
 }: Props) => {
   const [isFavorite, setFavorite] = useState(false);
-  const { user } = useContext(UserContext);
+  const [comments, setComments] = useState<JSX.Element[]>([]);
+  const [comment, setComment] = useState("");
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     const id = user ? user._id : "";
@@ -84,21 +87,52 @@ const Card = ({
   };
 
   const addAnimation = (event: any) => {
+    if (
+      event.target.id === "comment-input" ||
+      event.target.parentElement.id === "comment-input"
+    )
+      return;
     if (event.target.id === "fav-button") {
       return addToFavs();
     }
     if (selectedCard === drinkID) {
       setSelectedCard(null);
-      console.log("Card animation return");
+      //   console.log("Card animation return");
       return;
     }
     setSelectedCard(drinkID);
-    console.log("card animation added");
+    //   console.log("card animation added");
+    if (user) getComments();
+  };
+
+  const handleCommentInputChange = (event: any) => {
+    setComment(event.target.value);
+  };
+  const handleCommentInputSubmit = () => {};
+  const handleCommentButton = () => {};
+
+  const getComments = () => {
+    const arr = new Array(10).fill(0);
+    console.log(arr);
+    setComments(
+      arr.map((el, index) => {
+        return <Comment key={index} />;
+      })
+    );
+    console.log(comments);
   };
 
   const addToFavs = () => {
     addToFavorites(user?.token, _id, isFavorite);
     setFavorite((prev) => !prev);
+    setCocktailData((el: any) => {
+      const index = el.findIndex((cock: any) => cock._id === _id);
+      console.log(el, index);
+      if (el[index].hasOwnProperty(favorites))
+        el[index].favorites.push(user?._id);
+      else el[index].favorites = [user?._id];
+      return el;
+    });
   };
 
   const animation =
@@ -108,7 +142,7 @@ const Card = ({
       ? "cocktail-card-animation-hidden"
       : "";
 
-  console.log(drinkID, "drg ID", animation, selectedCard);
+  //  console.log(drinkID, "drg ID", animation, selectedCard);
   return (
     <figure
       key={drinkID}
@@ -122,39 +156,59 @@ const Card = ({
           alt="favorited icon"
           id="fav-button"
         />
-      ) : (
-        ""
-      )}
-      <div className="cocktail-image-container">
-        <img
-          src={imagePreview}
-          alt="cocktail thumbnail"
-          className="cocktail-image"
+      ) : null}
+      <div className="cocktail-card-content">
+        <div className="cocktail-image-container">
+          <img
+            src={imagePreview}
+            alt="cocktail thumbnail"
+            className="cocktail-image"
+          />
+        </div>
+        <div className="cocktail-info-side">
+          <h3 className="cocktail-category" onClick={categoryClick}>
+            {category}
+          </h3>
+          <h3 className="cocktail-name">{cocktailName}</h3>
+          <p className="cocktail-description">{instructions}</p>
+          <div className="cocktail-ingredients-side">
+            <ul className="cocktail-ingredients" onClick={handleListClick}>
+              {ingredientList}
+            </ul>
+            <ul className="cocktail-mesurments">{meausermentList}</ul>
+          </div>
+          <div className="cocktail--details">
+            <p className="cocktail--glass">
+              <span className="emoji">🍸</span>
+              {glass}
+            </p>
+            <p className="cocktail--fuel">
+              <span className="emoji">⛽</span>
+              {isAlcoholic}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="cocktail--card--comment-input" id="comment-input">
+        <input
+          type="text"
+          maxLength={140}
+          value={comment}
+          onChange={handleCommentInputChange}
+          onKeyDown={handleCommentInputSubmit}
+          placeholder="Type Your Comment ..."
         />
+        <button
+          className={
+            "comment--button " +
+            (comment.length > 0 ? "comment--button--active" : "")
+          }
+          onClick={handleCommentButton}
+        >
+          Send
+        </button>
       </div>
-      <div className="cocktail-info-side">
-        <h3 className="cocktail-category" onClick={categoryClick}>
-          {category}
-        </h3>
-        <h3 className="cocktail-name">{cocktailName}</h3>
-        <p className="cocktail-description">{instructions}</p>
-        <div className="cocktail-ingredients-side">
-          <ul className="cocktail-ingredients" onClick={handleListClick}>
-            {ingredientList}
-          </ul>
-          <ul className="cocktail-mesurments">{meausermentList}</ul>
-        </div>
-        <div className="cocktail--details">
-          <p className="cocktail--glass">
-            <span className="emoji">🍸</span>
-            {glass}
-          </p>
-          <p className="cocktail--fuel">
-            <span className="emoji">⛽</span>
-            {isAlcoholic}
-          </p>
-        </div>
-      </div>
+      <div className="cocktail--card--comments">{comments}</div>
     </figure>
   );
 };
