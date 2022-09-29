@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { signIn } from "../services/fetchData";
+import { signIn, googleOAuthGetId } from "../services/fetchData";
 import { ISignInResponse } from "../types/cocktailData.interface";
 import "../css/signIn.css";
 import googleIcon from "../img/google.svg";
@@ -8,20 +8,19 @@ import envelopIcon from "../img/envelop.svg";
 import rightArrowIcon from "../img/right-arrow.svg";
 import lockOpenIcon from "../img/lock-open.svg";
 import UserContext from "../UserContext";
-
+import GoogleSignin from "./googleOauth/GoogleSignin";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 export interface Props {
-  //   setLoggedIn: boolean;
-  //   setSignUp: any;
+  clientId: string;
 }
 
-const SignIn = () => {
+const SignIn = ({ clientId }: Props) => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
   useEffect(() => {
     if (user) {
       console.log(user);
@@ -51,13 +50,11 @@ const SignIn = () => {
           <p>Back To The Homepage</p>
         </button>
         <h1 className="si--h1">Sign In </h1>
-        <form
-          method="post"
-          className="si--form"
-          // autoCapitalize={false}
-          onSubmit={handleSubmit}
-        >
-          <button type="button" className="si--with--google-button btn--singIn">
+        <form method="post" className="si--form" onSubmit={handleSubmit}>
+          <GoogleOAuthProvider clientId={clientId}>
+            <GoogleSignin />
+          </GoogleOAuthProvider>
+          {/* <button type="button" className="si--with--google-button btn--singIn">
             <span className="si--with--google-icon">
               <img src={googleIcon} alt="google icon" />
             </span>
@@ -67,7 +64,7 @@ const SignIn = () => {
             <span className="si--google-or-dash"></span>
             <p>or</p>
             <span className="si--google-or-dash"></span>
-          </div>
+          </div> */}
           <label htmlFor="username" className="si--username-label">
             <span className="si--username-envelop-icon">
               <img src={envelopIcon} alt="username icon" />

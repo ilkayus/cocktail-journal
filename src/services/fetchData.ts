@@ -4,8 +4,8 @@ import {
   ISignInResponse,
 } from "../types/cocktailData.interface";
 
-//const BASE_URL = "http://localhost:9000/api/v1/";
-const BASE_URL = "https://cocktail-journal-server.herokuapp.com/api/v1/";
+const BASE_URL = "http://localhost:9000/api/v1/";
+//const BASE_URL = "https://cocktail-journal-server.herokuapp.com/api/v1/";
 // const BASE_URL =
 //   process.env.ENV === "development"
 //     ? "http://localhost:9000/api/v1/"
@@ -126,6 +126,13 @@ const removeComment = async (token: string | undefined, id: string) => {
   return response;
 };
 
+const googleOAuthGetId = async () => {
+  const url = `${BASE_URL}users/googleOAuth`;
+  const response = await axios.get(url);
+  console.log(response);
+  return response;
+};
+
 export {
   fetchData,
   signIn,
@@ -134,4 +141,5 @@ export {
   addComment,
   removeComment,
   getComments,
+  googleOAuthGetId,
 };
