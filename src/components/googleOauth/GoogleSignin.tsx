@@ -1,13 +1,32 @@
+import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
+import { signInWithGoogleOAuth } from "../../services/fetchData";
 import axios from "axios";
 import googleIcon from "../../img/google.svg";
+import UserContext from "../../UserContext";
 
 const GoogleSignin = () => {
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user) {
+      // console.log(user);
+      navigate("/");
+    }
+  }, [user]);
+
   const getUserInfo = async (data: any) => {
-    console.log(data);
     const url = `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${data.access_token}`;
     const response = await axios.get(url);
-    console.log(response);
+    const res = await signInWithGoogleOAuth(
+      response.data.email,
+      response.data.name,
+      response.data.picture,
+      response.data.sub
+    );
+    setUser(res);
   };
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => getUserInfo(tokenResponse),

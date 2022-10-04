@@ -130,14 +130,14 @@ const Card = ({
   const handleCommentInputSubmit = (event: any) => {
     if (event.key === "Enter") {
       if (comment.length > 0 && user) {
-        addComment(user.token, _id, comment).then((data) => console.log(data));
+        addComment(user.token, _id, comment);
         setComment("");
       }
     }
   };
   const handleCommentButton = () => {
     if (comment.length > 0 && user) {
-      addComment(user.token, _id, comment).then((data) => console.log(data));
+      addComment(user.token, _id, comment);
       setComment("");
     }
   };

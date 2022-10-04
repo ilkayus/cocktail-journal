@@ -56,7 +56,7 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
 
   const navigate = useNavigate();
   const handleAdvancedSearchClick = () => {
-    console.log(advancedSearch);
+    // console.log(advancedSearch);
     setAdvancedSearch((prev) => !prev);
   };
 

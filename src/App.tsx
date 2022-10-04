@@ -14,7 +14,6 @@ function App() {
   useEffect(() => {
     googleOAuthGetId().then((response) => {
       setClientId(response.data.clientId);
-      console.log(response);
     });
   }, []);
   return (
@@ -23,7 +22,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/cocktail-journal" element={<Homepage />} />
         <Route path="/signin" element={<SignIn clientId={clientId} />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp clientId={clientId} />} />
       </Routes>
     </UserContext.Provider>
   );

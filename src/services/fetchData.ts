@@ -18,7 +18,7 @@ const fetchData = async (
 ): Promise<ICocktailData> => {
   const config = CheckUser(user);
   const url = `${BASE_URL}${urlBuilder(fetchString, fetchInfo)}`;
-  console.log(url);
+  //  console.log(url);
   const response = await axios.get(url, config);
   return response.data;
 };
@@ -96,14 +96,14 @@ const addToFavorites = async (
   const url = `${BASE_URL}${addRemove}/${id}`;
   // console.log(url);
   const response = await axios.patch(url, {}, setHeader(token));
-  console.log(response);
+  // console.log(response);
   return response;
 };
 
 const getComments = async (id: string, token: string | undefined) => {
   const url = `${BASE_URL}comments/${id}`;
   const response = await axios.get(url, setHeader(token));
-  console.log(response);
+  //  console.log(response);
   return response;
 };
 
@@ -113,24 +113,40 @@ const addComment = async (
   comment: string
 ) => {
   const url = `${BASE_URL}addcomment/${id}`;
-  console.log(url);
+  //  console.log(url);
   const response = await axios.post(url, { data: comment }, setHeader(token));
-  console.log(response);
+  //  console.log(response);
   return response;
 };
 
 const removeComment = async (token: string | undefined, id: string) => {
   const url = `${BASE_URL}removecomment/${id}`;
   const response = await axios.delete(url, setHeader(token));
-  console.log(response);
+  // console.log(response);
   return response;
 };
 
 const googleOAuthGetId = async () => {
   const url = `${BASE_URL}users/googleOAuth`;
   const response = await axios.get(url);
-  console.log(response);
   return response;
+};
+
+const signInWithGoogleOAuth = async (
+  email: string,
+  username: string,
+  picture: string,
+  password: string
+) => {
+  const url = `${BASE_URL}users/signInWithGoogleOAuth`;
+  const response = await axios.post(url, {
+    email: email,
+    username: username,
+    photo: picture,
+    password: password,
+    passwordConfirm: password,
+  });
+  return response.data;
 };
 
 export {
@@ -142,4 +158,5 @@ export {
   removeComment,
   getComments,
   googleOAuthGetId,
+  signInWithGoogleOAuth,
 };

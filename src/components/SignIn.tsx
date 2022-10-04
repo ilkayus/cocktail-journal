@@ -21,7 +21,7 @@ const SignIn = ({ clientId }: Props) => {
   });
   useEffect(() => {
     if (user) {
-      console.log(user);
+      //   console.log(user);
       navigate("/");
     }
   }, [user]);
@@ -36,7 +36,7 @@ const SignIn = ({ clientId }: Props) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const res = await signIn(form.email, form.password);
-    console.log(res);
+    // console.log(res);
     setUser(res);
   };
 
@@ -52,17 +52,6 @@ const SignIn = ({ clientId }: Props) => {
           <GoogleOAuthProvider clientId={clientId}>
             <GoogleSignin />
           </GoogleOAuthProvider>
-          {/* <button type="button" className="si--with--google-button btn--singIn">
-            <span className="si--with--google-icon">
-              <img src={googleIcon} alt="google icon" />
-            </span>
-            <p>Sign in with Google</p>
-          </button>
-          <div className="si--google-or">
-            <span className="si--google-or-dash"></span>
-            <p>or</p>
-            <span className="si--google-or-dash"></span>
-          </div> */}
           <label htmlFor="username" className="si--username-label">
             <span className="si--username-envelop-icon">
               <img src={envelopIcon} alt="username icon" />

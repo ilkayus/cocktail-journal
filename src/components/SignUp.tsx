@@ -25,7 +25,7 @@ const SignUp = ({ clientId }: Props) => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
+      // console.log(user);
       navigate("/");
     }
   }, [user]);

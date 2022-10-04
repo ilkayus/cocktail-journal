@@ -11,7 +11,7 @@ const Pagination = ({ setPageNumber, pageInfo }: Props) => {
     event: React.ChangeEvent<unknown>,
     newPage: number
   ) => {
-    console.log(newPage);
+    //console.log(newPage);
     setPageNumber(([pageNumber, pageMax]) => [newPage, pageMax]);
   };
   return (
