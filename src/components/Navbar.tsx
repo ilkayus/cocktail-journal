@@ -34,10 +34,11 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
     <>
       <div className="navbar--dropdown">
         <img
-          src={loggedinIcon}
+          src={user.photo ? user.photo : loggedinIcon}
           alt="login icon"
-          className="btn--login btn--navbar navbar--dropdown--btn"
-          //onClick={() => navigate("/signin")}
+          className={`btn--login btn--navbar ${
+            user.photo ? "navbar--dropdown--btn" : ""
+          }`}
         />
         <ul className="navbar--dropdown-content">
           <li onClick={getUserFavs}>Favorites ⭐</li>
@@ -56,7 +57,6 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
 
   const navigate = useNavigate();
   const handleAdvancedSearchClick = () => {
-    // console.log(advancedSearch);
     setAdvancedSearch((prev) => !prev);
   };
 

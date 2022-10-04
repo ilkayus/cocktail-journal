@@ -57,9 +57,11 @@ body {
   padding: 10px;
   margin-right: min(8px, 1vw);
 }
-
 .navbar--dropdown {
   position: relative;
+}
+.navbar--dropdown--btn {
+  padding: 0;
 }
 .navbar--dropdown:hover .navbar--dropdown-content {
   display: flex;
