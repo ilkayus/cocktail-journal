@@ -2,19 +2,18 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../services/fetchData";
 import "../css/signIn.css";
-import googleIcon from "../img/google.svg";
 import envelopIcon from "../img/envelop.svg";
 import userIcon from "../img/user.svg";
 import rightArrowIcon from "../img/right-arrow.svg";
 import lockOpenIcon from "../img/lock-open.svg";
 import UserContext from "../UserContext";
-
+import GoogleSignin from "./googleOauth/GoogleSignin";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 export interface Props {
-  //   setLoggedIn: boolean;
-  //   setSignUp: any;
+  clientId: string;
 }
 
-const SignUp = () => {
+const SignUp = ({ clientId }: Props) => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const [form, setForm] = useState({
@@ -57,23 +56,10 @@ const SignUp = () => {
           <p>Back To The Homepage</p>
         </button>
         <h1 className="si--h1">Sign Up </h1>
-        <form
-          method="post"
-          className="si--form"
-          // autoCapitalize={false}
-          onSubmit={handleSubmit}
-        >
-          <button type="button" className="si--with--google-button btn--singIn">
-            <span className="si--with--google-icon">
-              <img src={googleIcon} alt="google icon" />
-            </span>
-            <p>Sign in with Google</p>
-          </button>
-          <div className="si--google-or">
-            <span className="si--google-or-dash"></span>
-            <p>or</p>
-            <span className="si--google-or-dash"></span>
-          </div>
+        <form method="post" className="si--form" onSubmit={handleSubmit}>
+          <GoogleOAuthProvider clientId={clientId}>
+            <GoogleSignin />
+          </GoogleOAuthProvider>
           <label htmlFor="username" className="si--username-label">
             <span className="si--username-envelop-icon">
               <img src={userIcon} alt="username icon" />

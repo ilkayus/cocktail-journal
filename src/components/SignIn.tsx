@@ -1,9 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { signIn, googleOAuthGetId } from "../services/fetchData";
-import { ISignInResponse } from "../types/cocktailData.interface";
+import { signIn } from "../services/fetchData";
 import "../css/signIn.css";
-import googleIcon from "../img/google.svg";
 import envelopIcon from "../img/envelop.svg";
 import rightArrowIcon from "../img/right-arrow.svg";
 import lockOpenIcon from "../img/lock-open.svg";
