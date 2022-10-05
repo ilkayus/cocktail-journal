@@ -3,13 +3,7 @@ import {
   ICocktailData,
   ISignInResponse,
 } from "../types/cocktailData.interface";
-
-//const BASE_URL = "http://localhost:9000/api/v1/";
-const BASE_URL = "https://cocktail-journal-server.herokuapp.com/api/v1/";
-// const BASE_URL =
-//   process.env.ENV === "development"
-//     ? "http://localhost:9000/api/v1/"
-//     : "https://cocktail-journal-server.herokuapp.com/api/v1/";
+import { urlHelper } from "../helpers";
 
 const fetchData = async (
   fetchString: string,
@@ -17,35 +11,20 @@ const fetchData = async (
   user?: ISignInResponse | undefined
 ): Promise<ICocktailData> => {
   const config = CheckUser(user);
-  const url = `${BASE_URL}${urlBuilder(fetchString, fetchInfo)}`;
+  const url = `${urlHelper.BASE_URL}${urlHelper.fetchCocktailDataUrlBuilder(
+    fetchString,
+    fetchInfo
+  )}`;
   //  console.log(url);
   const response = await axios.get(url, config);
   return response.data;
 };
-
-const urlBuilder = (fetchString: string, fetchInfo: string): string => {
-  if (fetchInfo.indexOf("/")) fetchInfo = fetchInfo.replace("/", "+");
-  if (fetchString === "homepage") return "";
-  if (
-    fetchString === "category" ||
-    fetchString === "ingredients" ||
-    fetchString === "cocktailName"
-  ) {
-    return `${fetchString}/${fetchInfo}`;
-  }
-  if (fetchString === "search") {
-    const searchString = fetchInfo.split(":");
-    return `${fetchString}/${searchString[0]}/${searchString[1]}/${searchString[2]}`;
-  }
-  if (fetchString === "favorites") return "favorites";
-  return "";
-};
-
+//-----------------------------------------------
 const signIn = async (
   email: string,
   password: string
 ): Promise<ISignInResponse> => {
-  const url = `${BASE_URL}users/signin`;
+  const url = `${urlHelper.BASE_URL}users/signin`;
   const response = await axios.post(url, {
     email: email,
     password: password,
@@ -59,7 +38,7 @@ const signUp = async (
   password: string,
   passwordConfirm: string
 ): Promise<ISignInResponse> => {
-  const url = `${BASE_URL}users/signup`;
+  const url = `${urlHelper.BASE_URL}users/signup`;
   const response = await axios.post(url, {
     email: email,
     username: username,
@@ -68,7 +47,7 @@ const signUp = async (
   });
   return response.data;
 };
-
+//-----------------------------------------------
 const CheckUser = (user: ISignInResponse | undefined): any => {
   const config = user
     ? {
@@ -79,6 +58,7 @@ const CheckUser = (user: ISignInResponse | undefined): any => {
     : {};
   return config;
 };
+//-----------------------------------------------
 const setHeader = (token: string | undefined): any => {
   const config = {
     headers: {
@@ -93,7 +73,7 @@ const addToFavorites = async (
   isFav: boolean
 ) => {
   const addRemove = isFav ? "removefavs" : "addfavs";
-  const url = `${BASE_URL}${addRemove}/${id}`;
+  const url = `${urlHelper.BASE_URL}${addRemove}/${id}`;
   // console.log(url);
   const response = await axios.patch(url, {}, setHeader(token));
   // console.log(response);
@@ -101,7 +81,7 @@ const addToFavorites = async (
 };
 
 const getComments = async (id: string, token: string | undefined) => {
-  const url = `${BASE_URL}comments/${id}`;
+  const url = `${urlHelper.BASE_URL}comments/${id}`;
   const response = await axios.get(url, setHeader(token));
   //  console.log(response);
   return response;
@@ -112,7 +92,7 @@ const addComment = async (
   id: string,
   comment: string
 ) => {
-  const url = `${BASE_URL}addcomment/${id}`;
+  const url = `${urlHelper.BASE_URL}addcomment/${id}`;
   //  console.log(url);
   const response = await axios.post(url, { data: comment }, setHeader(token));
   //  console.log(response);
@@ -120,14 +100,14 @@ const addComment = async (
 };
 
 const removeComment = async (token: string | undefined, id: string) => {
-  const url = `${BASE_URL}removecomment/${id}`;
+  const url = `${urlHelper.BASE_URL}removecomment/${id}`;
   const response = await axios.delete(url, setHeader(token));
   // console.log(response);
   return response;
 };
-
+//-----------------------------------------------
 const googleOAuthGetId = async () => {
-  const url = `${BASE_URL}users/googleOAuth`;
+  const url = `${urlHelper.BASE_URL}users/googleOAuth`;
   const response = await axios.get(url);
   return response;
 };
@@ -138,7 +118,7 @@ const signInWithGoogleOAuth = async (
   picture: string,
   password: string
 ) => {
-  const url = `${BASE_URL}users/signInWithGoogleOAuth`;
+  const url = `${urlHelper.BASE_URL}users/signInWithGoogleOAuth`;
   const response = await axios.post(url, {
     email: email,
     username: username,
