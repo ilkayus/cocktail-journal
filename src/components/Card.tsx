@@ -107,21 +107,24 @@ const Card = ({
     }
     setSelectedCard(drinkID);
     //   console.log("card animation added");
-    if (user)
-      getComments(_id, user.token).then((data) =>
-        setComments(
-          data.data.data.coms.map((el: any, index: any) => {
-            return (
-              <Comment
-                key={index}
-                username={el.username}
-                userPhoto={el.userPhoto ? el.userPhoto : undefined}
-                commentText={el.commentText}
-              />
-            );
-          })
-        )
-      ); //getCommentsSahte();
+    if (user) renderComments();
+  };
+
+  const renderComments = () => {
+    getComments(_id, user?.token).then((data) =>
+      setComments(
+        data.data.data.coms.map((el: any, index: any) => {
+          return (
+            <Comment
+              key={index}
+              username={el.username}
+              userPhoto={el.userPhoto ? el.userPhoto : undefined}
+              commentText={el.commentText}
+            />
+          );
+        })
+      )
+    ); //getCommentsSahte();
   };
 
   const handleCommentInputChange = (event: any) => {
@@ -130,28 +133,17 @@ const Card = ({
   const handleCommentInputSubmit = (event: any) => {
     if (event.key === "Enter") {
       if (comment.length > 0 && user) {
-        addComment(user.token, _id, comment);
+        addComment(user.token, _id, comment).then(() => renderComments());
         setComment("");
       }
     }
   };
   const handleCommentButton = () => {
     if (comment.length > 0 && user) {
-      addComment(user.token, _id, comment);
+      addComment(user.token, _id, comment).then(() => renderComments());
       setComment("");
     }
   };
-
-  // const getCommentsSahte = () => {
-  //   const arr = new Array(10).fill(0);
-  //   console.log(arr);
-  //   setComments(
-  //     arr.map((el, index) => {
-  //       return <Comment key={index} />;
-  //     })
-  //   );
-  //   // console.log(comments);
-  // };
 
   const addToFavs = () => {
     addToFavorites(user?.token, _id, isFavorite);
