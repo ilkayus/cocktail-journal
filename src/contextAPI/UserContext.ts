@@ -1,5 +1,5 @@
 import React from "react";
-import { ISignInResponse } from "./types/cocktailData.interface";
+import { ISignInResponse } from "../types/cocktailData.interface";
 
 type UserContextType = {
   user: ISignInResponse | undefined;

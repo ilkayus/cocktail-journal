@@ -2,13 +2,11 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import SearchIngredients from "./SearchFieldIngs";
-import ingredientsData from "../data/ingredients.json";
-import categoriesData from "../data/categories.json";
-import typeData from "../data/typeAlcoholic.json";
-import { fetchData } from "../services/fetchData";
-import renderNew from "../services/renderNew";
-import UserContext from "../UserContext";
+import { searchHelper } from "../../helpers/index";
+import { fetchData } from "../../services/fetchData";
+import renderNew from "../../services/renderNew";
+import UserContext from "../../contextAPI/UserContext";
+import Components from "components";
 
 const style = {
   position: "absolute" as "absolute",
@@ -71,21 +69,21 @@ const AdvancedSearcModal = ({
       <Box sx={style} className="modal--box">
         <h2>Find Your Favorite Cocktails!</h2>
         <div className="modal--box-content">
-          <SearchIngredients
+          <Components.SearchIngredients
             multiSelection={false}
-            data={typeData}
+            data={searchHelper.typeAlcoholic}
             dataTitle="Type"
             setValue={setTypeValue}
           />
-          <SearchIngredients
+          <Components.SearchIngredients
             multiSelection={false}
-            data={categoriesData}
+            data={searchHelper.categories}
             dataTitle="Categories"
             setValue={setCategoriesValue}
           />
-          <SearchIngredients
+          <Components.SearchIngredients
             multiSelection={true}
-            data={ingredientsData}
+            data={searchHelper.ingredients}
             dataTitle="Ingredients"
             setValue={setIngredientsValue}
           />

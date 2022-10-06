@@ -1,4 +1,10 @@
-const HeaderInput = (handleChange: any, inputData: any, handleSubmit: any) => {
+export interface Props {
+  handleChange: any;
+  inputData: any;
+  handleSubmit: any;
+}
+
+const HeaderInput = ({ handleChange, inputData, handleSubmit }: Props) => {
   return (
     <input
       type="search"

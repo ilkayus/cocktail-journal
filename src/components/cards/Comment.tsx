@@ -1,4 +1,4 @@
-import userIcon from "../img/user.svg";
+import { icons } from "../../img/index";
 export interface Props {
   username: string;
   userPhoto: string | undefined;
@@ -9,7 +9,7 @@ const Comment = ({ username, userPhoto, commentText }: Props) => {
     <div className="comment--container">
       <div className="comment--head">
         <img
-          src={userPhoto ? userPhoto : userIcon}
+          src={userPhoto ? userPhoto : icons.user}
           alt="user icon"
           className="comment--image"
         />

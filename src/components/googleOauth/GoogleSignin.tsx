@@ -1,10 +1,10 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import { signInWithGoogleOAuth } from "../../services/fetchData";
 import axios from "axios";
-import googleIcon from "../../img/google.svg";
-import UserContext from "../../UserContext";
+import { icons } from "../../img/index";
+import UserContext from "../../contextAPI/UserContext";
 
 const GoogleSignin = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const GoogleSignin = () => {
         onClick={() => login()}
       >
         <span className="si--with--google-icon">
-          <img src={googleIcon} alt="google icon" />
+          <img src={icons.google} alt="google icon" />
         </span>
         <p>Sign in with Google</p>
       </button>

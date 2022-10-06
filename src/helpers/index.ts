@@ -1,2 +1,4 @@
 import * as urlHelper from "./url.helper";
-export { urlHelper };
+import * as searchHelper from "./search.helper";
+
+export { urlHelper, searchHelper };

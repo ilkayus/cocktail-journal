@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react";
-import Navbar from "./Navbar";
-import Card from "./Card";
-import Pagination from "./Pagination";
-import { fetchData } from "../services/fetchData";
-import renderNew from "../services/renderNew";
-import { ICocktailData } from "../types/cocktailData.interface";
-import Loading from "./Loading";
-import NoData from "./NoData";
+import { fetchData } from "../../services/fetchData";
+import renderNew from "../../services/renderNew";
+import { ICocktailData } from "../../types/cocktailData.interface";
+import Components from "components";
 
 function Homepage() {
   const [randomClick, setRandomClick] = useState(0);
@@ -36,7 +32,7 @@ function Homepage() {
       setCards(
         cardsData.map((item: any) => {
           return (
-            <Card
+            <Components.Card
               key={item.drinkID}
               {...item}
               setCocktailData={setCocktailData}
@@ -56,16 +52,20 @@ function Homepage() {
 
   return (
     <div className="App">
-      <Navbar
+      <Components.Navbar
         setRandomClick={setRandomClick}
         setCocktailData={setCocktailData}
         setPageNumber={setPageNumber}
       />
-      {noData && !isRequesting ? <NoData setNoData={setNoData} /> : null}
-      <div className="card-container">{isRequesting ? <Loading /> : cards}</div>
+      {noData && !isRequesting ? (
+        <Components.NoData setNoData={setNoData} />
+      ) : null}
+      <div className="card-container">
+        {isRequesting ? <Components.Loading /> : cards}
+      </div>
       <div className="pagination--container">
         {isRequesting ? null : (
-          <Pagination
+          <Components.Pagination
             setPageNumber={setPageNumber}
             pageInfo={[pageNumber, pageMax]}
           />

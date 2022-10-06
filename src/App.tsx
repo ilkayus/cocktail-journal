@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Homepage from "./components/Homepage";
 import { ISignInResponse } from "./types/cocktailData.interface";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
-import UserContext from "./UserContext";
+import Pages from "./pages/index";
+import UserContext from "./contextAPI/UserContext";
 import { googleOAuthGetId } from "./services/fetchData";
 
 function App() {
@@ -19,10 +17,10 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/cocktail-journal" element={<Homepage />} />
-        <Route path="/signin" element={<SignIn clientId={clientId} />} />
-        <Route path="/signup" element={<SignUp clientId={clientId} />} />
+        <Route path="/" element={<Pages.Homepage />} />
+        <Route path="/cocktail-journal" element={<Pages.Homepage />} />
+        <Route path="/signin" element={<Pages.SignIn clientId={clientId} />} />
+        <Route path="/signup" element={<Pages.SignUp clientId={clientId} />} />
       </Routes>
     </UserContext.Provider>
   );

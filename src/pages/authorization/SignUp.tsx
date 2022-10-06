@@ -1,27 +1,29 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { signIn } from "../services/fetchData";
-import "../css/signIn.css";
-import envelopIcon from "../img/envelop.svg";
-import rightArrowIcon from "../img/right-arrow.svg";
-import lockOpenIcon from "../img/lock-open.svg";
-import UserContext from "../UserContext";
-import GoogleSignin from "./googleOauth/GoogleSignin";
+import { signUp } from "../../services/fetchData";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import UserContext from "../../contextAPI/UserContext";
+import "./authorization.style.css";
+import Components from "components";
+import { icons } from "../../img/index";
+
 export interface Props {
   clientId: string;
 }
 
-const SignIn = ({ clientId }: Props) => {
+const SignUp = ({ clientId }: Props) => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const [form, setForm] = useState({
     email: "",
+    username: "",
     password: "",
+    passwordConfirm: "",
   });
+
   useEffect(() => {
     if (user) {
-      //   console.log(user);
+      // console.log(user);
       navigate("/");
     }
   }, [user]);
@@ -35,8 +37,12 @@ const SignIn = ({ clientId }: Props) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res = await signIn(form.email, form.password);
-    // console.log(res);
+    const res = await signUp(
+      form.email,
+      form.username,
+      form.password,
+      form.passwordConfirm
+    );
     setUser(res);
   };
 
@@ -44,17 +50,40 @@ const SignIn = ({ clientId }: Props) => {
     <div className="sign--app">
       <div className="si--container">
         <button className="si--back-homepage" onClick={() => navigate("/")}>
-          <img src={rightArrowIcon} alt="homepage icon" />
+          <img src={icons.rightArrow} alt="homepage icon" />
           <p>Back To The Homepage</p>
         </button>
-        <h1 className="si--h1">Sign In </h1>
+        <h1 className="si--h1">Sign Up </h1>
         <form method="post" className="si--form" onSubmit={handleSubmit}>
           <GoogleOAuthProvider clientId={clientId}>
-            <GoogleSignin />
+            <Components.GoogleSignin />
           </GoogleOAuthProvider>
           <label htmlFor="username" className="si--username-label">
             <span className="si--username-envelop-icon">
-              <img src={envelopIcon} alt="username icon" />
+              <img src={icons.user} alt="username icon" />
+            </span>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              className={`si--username-input 
+            ${
+              form.username.length > 4
+                ? "si--username-input-valid"
+                : form.username.length > 0
+                ? "si--username-input-invalid"
+                : ""
+            }
+            `}
+              required
+              pattern="^[@a-z0-9._]{4,}$"
+              value={form.username}
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="email" className="si--username-label">
+            <span className="si--username-envelop-icon">
+              <img src={icons.envelop} alt="email icon" />
             </span>
             <input
               type="email"
@@ -77,7 +106,7 @@ const SignIn = ({ clientId }: Props) => {
           </label>
           <label htmlFor="password" className="si--username-label">
             <span className="si--username-envelop-icon">
-              <img src={lockOpenIcon} alt="password icon" />
+              <img src={icons.lockOpen} alt="password icon" />
             </span>
             <input
               type="password"
@@ -91,25 +120,48 @@ const SignIn = ({ clientId }: Props) => {
                 ? "si--username-input-invalid"
                 : "si--username-input-untouched"
             }
-              `}
+          `}
               pattern="^[A-Za-z0-9\W]{3,}$"
               required
               value={form.password}
               onChange={handleChange}
             />
           </label>
+          <label htmlFor="passwordConfirm" className="si--username-label">
+            <span className="si--username-envelop-icon">
+              <img src={icons.envelop} alt="password icon" />
+            </span>
+            <input
+              type="password"
+              name="passwordConfirm"
+              placeholder="Confirm Password"
+              className={`si--username-input 
+            ${
+              form.passwordConfirm.length > 3
+                ? "si--username-input-valid"
+                : form.passwordConfirm.length > 0
+                ? "si--username-input-invalid"
+                : "si--username-input-untouched"
+            }
+            `}
+              pattern="^[A-Za-z0-9\W]{3,}$"
+              required
+              value={form.passwordConfirm}
+              onChange={handleChange}
+            />
+          </label>
           <button type="submit" className="si--submit-button btn--singIn">
-            <p>Sign In</p>
-            <img src={rightArrowIcon} alt="sing in submit icon" />
+            <p>Sign Up</p>
+            <img src={icons.rightArrow} alt="sing in submit icon" />
           </button>
           <span className="si--create-account">
-            <p>Don't have an account yet?</p>
+            <p>Do you have an account?</p>
             <button
               type="button"
               className="si--create-account-btn"
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/signin")}
             >
-              Sign Up
+              Sign In
             </button>
           </span>
         </form>
@@ -118,4 +170,4 @@ const SignIn = ({ clientId }: Props) => {
   );
 };
 
-export default SignIn;
+export default SignUp;

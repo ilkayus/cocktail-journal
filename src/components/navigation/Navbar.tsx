@@ -1,17 +1,11 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import HeaderText from "./Header-text";
-import HeaderInput from "./Header-input";
-import { fetchData } from "../services/fetchData";
-import renderNew from "../services/renderNew";
-import AdvancedSearcModal from "./AdvancedSearch";
-import advancedSearchIcon from "../img/advanced-search.svg";
-import randomIcon from "../img/random-thin.svg";
-import enterIcon from "../img/enter-icon.png";
-import searchIcon from "../img/search-1.svg";
-import loggedinIcon from "../img/user-white.svg";
-import loginIcon from "../img/user-login.svg";
-import UserContext from "../UserContext";
+import { fetchData } from "../../services/fetchData";
+import renderNew from "../../services/renderNew";
+import Components from "components";
+import { icons } from "../../img/index";
+import UserContext from "../../contextAPI/UserContext";
+
 export interface Props {
   setRandomClick: any;
   setCocktailData: any;
@@ -34,7 +28,7 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
     <>
       <div className="navbar--dropdown">
         <img
-          src={user.photo ? user.photo : loggedinIcon}
+          src={user.photo ? user.photo : icons.signed}
           alt="login icon"
           className={`btn--login btn--navbar ${
             user.photo ? "navbar--dropdown--btn" : ""
@@ -48,7 +42,7 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
     </>
   ) : (
     <img
-      src={loginIcon}
+      src={icons.signIn}
       alt="login icon"
       className="btn--login btn--navbar"
       onClick={() => navigate("/signin")}
@@ -90,12 +84,18 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
   };
   return (
     <nav className="navbar">
-      {isSearch
-        ? HeaderText()
-        : HeaderInput(handleChange, inputData, handleSubmit)}
+      {isSearch ? (
+        <Components.HeaderText />
+      ) : (
+        <Components.HeaderInput
+          handleChange={handleChange}
+          inputData={inputData}
+          handleSubmit={handleSubmit}
+        />
+      )}
       <div className="navbar--buttons">
         <img
-          src={isSearch ? searchIcon : enterIcon}
+          src={isSearch ? icons.search : icons.enter}
           alt="search icon"
           className={
             isSearch
@@ -105,20 +105,20 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
           onClick={handleSearchClick}
         />
         <img
-          src={advancedSearchIcon}
+          src={icons.advancedSearc}
           alt="advanced search icon"
           className="btn--advanced-search btn--navbar"
           onClick={handleAdvancedSearchClick}
         />
         <img
-          src={randomIcon}
+          src={icons.random}
           alt="random icon"
           className="btn--random btn--navbar"
           onClick={randomClick}
         />
         {signInOutButton}
       </div>
-      <AdvancedSearcModal
+      <Components.AdvancedSearcModal
         advancedSearch={advancedSearch}
         handleAdvancedSearchClick={handleAdvancedSearchClick}
         setCocktailData={setCocktailData}

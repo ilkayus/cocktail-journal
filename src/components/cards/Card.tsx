@@ -5,12 +5,11 @@ import {
   addToFavorites,
   addComment,
   getComments,
-} from "../services/fetchData";
-import renderNew from "../services/renderNew";
-import UserContext from "../UserContext";
-import starIcon from "../img/star.svg";
-import starAnimatedIcon from "../img/star-animated.svg";
-import Comment from "./Comment";
+} from "../../services/fetchData";
+import renderNew from "../../services/renderNew";
+import UserContext from "../../contextAPI/UserContext";
+import { icons } from "../../img/index";
+import Components from "components";
 
 export interface Props {
   imagePreview: string;
@@ -59,24 +58,6 @@ const Card = ({
     setFavorite(!favorites ? false : favorites.includes(id) ? true : false);
   }, []);
 
-  let ingredientList: JSX.Element[] = [];
-  let meausermentList: JSX.Element[] = [];
-  for (let i = 0; i < 15; i++) {
-    if (ingredients[i] === null || ingredients[i] === "") i = 15;
-    else {
-      const ingIcon = i % 2 === 0 ? "💧" : "🩸";
-      ingredientList.push(
-        <li key={i} data-ingredient={ingredients[i]}>
-          {ingIcon} {ingredients[i]}
-        </li>
-      );
-      meausermentList.push(
-        <li key={i}>
-          🧪 {ingMeasure[i] === null ? "Optional" : ingMeasure[i]}
-        </li>
-      );
-    }
-  }
   const categoryClick = async (event: any) => {
     const data = await fetchData("category", event.target.textContent);
     renderNew(setCocktailData, setPageNumber, data);
@@ -115,7 +96,7 @@ const Card = ({
       setComments(
         data.data.data.coms.map((el: any, index: any) => {
           return (
-            <Comment
+            <Components.Comment
               key={index}
               username={el.username}
               userPhoto={el.userPhoto ? el.userPhoto : undefined}
@@ -175,7 +156,7 @@ const Card = ({
       {user ? (
         <img
           className="cocktail--favorited"
-          src={isFavorite ? starAnimatedIcon : starIcon}
+          src={isFavorite ? icons.starYellow : icons.starEmpty}
           alt="favorited icon"
           id="fav-button"
         />
@@ -196,9 +177,23 @@ const Card = ({
           <p className="cocktail-description">{instructions}</p>
           <div className="cocktail-ingredients-side">
             <ul className="cocktail-ingredients" onClick={handleListClick}>
-              {ingredientList}
+              {ingredients
+                .filter((el) => el !== "" && el !== null)
+                .map((el, ix) => (
+                  <li key={ix} data-ingredient={el}>
+                    {ix % 2 === 0 ? "💧" : "🩸"} {el}
+                  </li>
+                ))}
             </ul>
-            <ul className="cocktail-mesurments">{meausermentList}</ul>
+            <ul className="cocktail-mesurments">
+              {ingredients
+                .filter((el) => el !== "" && el !== null)
+                .map((el, ix) => (
+                  <li key={ix}>
+                    🧪 {ingMeasure[ix] === null ? "Optional" : ingMeasure[ix]}
+                  </li>
+                ))}
+            </ul>
           </div>
           <div className="cocktail--details">
             <p className="cocktail--glass">
