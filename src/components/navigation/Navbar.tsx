@@ -1,10 +1,7 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { fetchData } from "../../services/fetchData";
-import renderNew from "../../services/renderNew";
+import { useState } from "react";
+import cocktailAPI from "services";
 import Components from "components";
-import { icons } from "../../img/index";
-import UserContext from "../../contextAPI/UserContext";
+import { icons } from "img";
 
 export interface Props {
   setRandomClick: any;
@@ -16,40 +13,7 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
   const [advancedSearch, setAdvancedSearch] = useState(false);
   const [inputData, setInputData] = useState("");
   const [isSearch, setIsSearch] = useState(true);
-  const { user, setUser } = useContext(UserContext);
 
-  const signOutUser = () => setUser(undefined);
-  const getUserFavs = () => {
-    fetchData("favorites", "", user).then((data) =>
-      renderNew(setCocktailData, setPageNumber, data)
-    );
-  };
-  const signInOutButton = user ? (
-    <>
-      <div className="navbar--dropdown">
-        <img
-          src={user.photo ? user.photo : icons.signed}
-          alt="login icon"
-          className={`btn--login btn--navbar ${
-            user.photo ? "navbar--dropdown--btn" : ""
-          }`}
-        />
-        <ul className="navbar--dropdown-content">
-          <li onClick={getUserFavs}>Favorites ⭐</li>
-          <li onClick={signOutUser}>Sing Out 👋🏻</li>
-        </ul>
-      </div>
-    </>
-  ) : (
-    <img
-      src={icons.signIn}
-      alt="login icon"
-      className="btn--login btn--navbar"
-      onClick={() => navigate("/signin")}
-    />
-  );
-
-  const navigate = useNavigate();
   const handleAdvancedSearchClick = () => {
     setAdvancedSearch((prev) => !prev);
   };
@@ -58,8 +22,12 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
     setInputData(event.target.value);
   };
   const searchResults = async (searchText: string) => {
-    fetchData("cocktailName", searchText).then((data) =>
-      renderNew(setCocktailData, setPageNumber, data)
+    cocktailAPI.fetchCocktailDataAndRender(
+      "cocktailName",
+      searchText,
+      undefined,
+      setCocktailData,
+      setPageNumber
     );
   };
 
@@ -116,7 +84,10 @@ const Navbar = ({ setRandomClick, setCocktailData, setPageNumber }: Props) => {
           className="btn--random btn--navbar"
           onClick={randomClick}
         />
-        {signInOutButton}
+        <Components.SignInOutButton
+          setCocktailData={setCocktailData}
+          setPageNumber={setPageNumber}
+        />
       </div>
       <Components.AdvancedSearcModal
         advancedSearch={advancedSearch}

@@ -2,10 +2,9 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import { searchHelper } from "../../helpers/index";
-import { fetchData } from "../../services/fetchData";
-import renderNew from "../../services/renderNew";
-import UserContext from "../../contextAPI/UserContext";
+import { searchHelper } from "helpers";
+import cocktailAPI from "services";
+import UserContext from "contextAPI/UserContext";
 import Components from "components";
 
 const style = {
@@ -49,11 +48,13 @@ const AdvancedSearcModal = ({
     const ings = ingredientsValue?.map((el) => {
       return el?.title;
     });
-    fetchData(
+    cocktailAPI.fetchCocktailDataAndRender(
       "search",
       `${type + ":" + category + ":" + ings?.join(",")}`,
-      user
-    ).then((data) => renderNew(setCocktailData, setPageNumber, data));
+      user,
+      setCocktailData,
+      setPageNumber
+    );
     setTypeValue(null);
     setCategoriesValue(null);
     setIngredientsValue(null);

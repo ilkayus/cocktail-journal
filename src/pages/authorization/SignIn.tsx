@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { signIn } from "../../services/fetchData";
+import cocktailAPI from "services";
 import "./authorization.style.css";
 import Components from "components";
-import { icons } from "../../img/index";
-import UserContext from "../../contextAPI/UserContext";
+import { icons } from "img";
+import UserContext from "contextAPI/UserContext";
 
 export interface Props {
   clientId: string;
@@ -18,12 +18,12 @@ const SignIn = ({ clientId }: Props) => {
     email: "",
     password: "",
   });
-  useEffect(() => {
-    if (user) {
-      //   console.log(user);
-      navigate("/");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     //   console.log(user);
+  //     navigate("/");
+  //   }
+  // }, [user]);
 
   const handleChange = (e: any) => {
     setForm((prev) => ({
@@ -34,9 +34,13 @@ const SignIn = ({ clientId }: Props) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res = await signIn(form.email, form.password);
+    const res = await cocktailAPI.authorization.signIn(
+      form.email,
+      form.password
+    );
     // console.log(res);
     setUser(res);
+    navigate("/");
   };
 
   return (

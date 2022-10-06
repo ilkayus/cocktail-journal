@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { ISignInResponse } from "./types/cocktailData.interface";
-import Pages from "./pages/index";
+import Pages from "./pages";
 import UserContext from "./contextAPI/UserContext";
-import { googleOAuthGetId } from "./services/fetchData";
+import cocktailAPI from "./services";
 
 function App() {
   const [user, setUser] = useState<ISignInResponse>();
   const [clientId, setClientId] = useState("");
   useEffect(() => {
-    googleOAuthGetId().then((response) => {
+    cocktailAPI.authorization.googleOAuthGetId().then((response) => {
       setClientId(response.data.clientId);
     });
   }, []);

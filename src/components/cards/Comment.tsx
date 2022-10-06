@@ -1,4 +1,4 @@
-import { icons } from "../../img/index";
+import { icons } from "img";
 export interface Props {
   username: string;
   userPhoto: string | undefined;

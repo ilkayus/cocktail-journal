@@ -1,14 +1,8 @@
 // import { log } from "console";
 import { useContext, useState, useEffect } from "react";
-import {
-  fetchData,
-  addToFavorites,
-  addComment,
-  getComments,
-} from "../../services/fetchData";
-import renderNew from "../../services/renderNew";
-import UserContext from "../../contextAPI/UserContext";
-import { icons } from "../../img/index";
+import cocktailAPI from "services";
+import UserContext from "contextAPI/UserContext";
+import { icons } from "img";
 import Components from "components";
 
 export interface Props {
@@ -59,17 +53,24 @@ const Card = ({
   }, []);
 
   const categoryClick = async (event: any) => {
-    const data = await fetchData("category", event.target.textContent);
-    renderNew(setCocktailData, setPageNumber, data);
+    await cocktailAPI.fetchCocktailDataAndRender(
+      "category",
+      event.target.textContent,
+      undefined,
+      setCocktailData,
+      setPageNumber
+    );
   };
 
   const handleListClick = async (event: any) => {
     if (!event.target.dataset.ingredient) return;
-    const data = await fetchData(
-      "ingredients",
-      event.target.dataset.ingredient
+    await cocktailAPI.fetchCocktailDataAndRender(
+      "category",
+      event.target.textContent,
+      undefined,
+      setCocktailData,
+      setPageNumber
     );
-    renderNew(setCocktailData, setPageNumber, data);
   };
 
   const addAnimation = (event: any) => {
@@ -92,7 +93,7 @@ const Card = ({
   };
 
   const renderComments = () => {
-    getComments(_id, user?.token).then((data) =>
+    cocktailAPI.userAction.getComments(_id, user?.token).then((data) =>
       setComments(
         data.data.data.coms.map((el: any, index: any) => {
           return (
@@ -114,20 +115,24 @@ const Card = ({
   const handleCommentInputSubmit = (event: any) => {
     if (event.key === "Enter") {
       if (comment.length > 0 && user) {
-        addComment(user.token, _id, comment).then(() => renderComments());
+        cocktailAPI.userAction
+          .addComment(user.token, _id, comment)
+          .then(() => renderComments());
         setComment("");
       }
     }
   };
   const handleCommentButton = () => {
     if (comment.length > 0 && user) {
-      addComment(user.token, _id, comment).then(() => renderComments());
+      cocktailAPI.userAction
+        .addComment(user.token, _id, comment)
+        .then(() => renderComments());
       setComment("");
     }
   };
 
   const addToFavs = () => {
-    addToFavorites(user?.token, _id, isFavorite);
+    cocktailAPI.userAction.addToFavorites(user?.token, _id, isFavorite);
     setFavorite((prev) => !prev);
     setCocktailData((el: any) => {
       const index = el.findIndex((cock: any) => cock._id === _id);

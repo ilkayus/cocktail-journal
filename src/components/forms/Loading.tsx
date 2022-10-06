@@ -1,4 +1,4 @@
-import { gifs } from "../../img/index";
+import { gifs } from "img";
 
 const Loading = () => {
   return (

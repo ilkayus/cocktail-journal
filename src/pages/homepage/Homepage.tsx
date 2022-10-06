@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { fetchData } from "../../services/fetchData";
-import renderNew from "../../services/renderNew";
-import { ICocktailData } from "../../types/cocktailData.interface";
+import cocktailAPI from "services";
+import { ICocktailData } from "types/cocktailData.interface";
 import Components from "components";
 
 function Homepage() {
@@ -15,8 +14,14 @@ function Homepage() {
 
   useEffect(() => {
     setIsRequesting(true);
-    fetchData("homepage", "")
-      .then((data) => renderNew(setCocktailData, setPageNumber, data))
+    cocktailAPI
+      .fetchCocktailDataAndRender(
+        "homepage",
+        "",
+        undefined,
+        setCocktailData,
+        setPageNumber
+      )
       .finally(() => setIsRequesting(false));
   }, [randomClick]);
 

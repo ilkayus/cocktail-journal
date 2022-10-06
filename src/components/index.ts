@@ -11,6 +11,7 @@ import HeaderInput from "components/navigation/Header-input";
 import HeaderText from "components/navigation/Header-text";
 import Navbar from "components/navigation/Navbar";
 import SearchIngredients from "components/navigation/SearchFieldIngs";
+import SignInOutButton from "components/navigation/SignInOutButton";
 
 import Pagination from "components/pagination/Pagination";
 
@@ -25,6 +26,7 @@ const Components = {
   HeaderText,
   Navbar,
   SearchIngredients,
+  SignInOutButton,
   Pagination,
 };
 
