@@ -37,7 +37,11 @@ const addComment = async (
 ) => {
   const url = `${urlHelper.BASE_URL}addcomment/${id}`;
   //  console.log(url);
-  const response = await axios.post(url, { data: comment }, setHeader(token));
+  const response = await axios.post(
+    url,
+    { data: comment, createDate: new Date() },
+    setHeader(token)
+  );
   //  console.log(response);
   return response;
 };

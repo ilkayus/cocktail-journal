@@ -45,7 +45,7 @@ const Card = ({
   const [isFavorite, setFavorite] = useState(false);
   const [comments, setComments] = useState<JSX.Element[]>([]);
   const [comment, setComment] = useState("");
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const id = user ? user._id : "";
@@ -76,7 +76,8 @@ const Card = ({
   const addAnimation = (event: any) => {
     if (
       event.target.id === "comment-input" ||
-      event.target.parentElement.id === "comment-input"
+      event.target.parentElement.id === "comment-input" ||
+      event.target.parentElement.parentElement.id === "comment--comments"
     )
       return;
     if (event.target.id === "fav-button") {
@@ -137,7 +138,7 @@ const Card = ({
     setFavorite((prev) => !prev);
     setCocktailData((el: any) => {
       const index = el.findIndex((cock: any) => cock._id === _id);
-      console.log(el, index);
+      //console.log(el, index);
       if (el[index].hasOwnProperty(favorites))
         el[index].favorites.push(user?._id);
       else el[index].favorites = [user?._id];
@@ -160,13 +161,16 @@ const Card = ({
       onClick={addAnimation}
     >
       {user ? (
+        // <>
+        //   <p className="cocktail--favorited-times">{timesfavorite}</p>
         <img
           className="cocktail--favorited"
           src={isFavorite ? icons.starYellow : icons.starEmpty}
           alt="favorited icon"
           id="fav-button"
         />
-      ) : null}
+      ) : // </>
+      null}
       <div className="cocktail-card-content">
         <div className="cocktail-image-container">
           <img
