@@ -3,8 +3,20 @@ export interface Props {
   username: string;
   userPhoto: string | undefined;
   commentText: string;
+  createDate: string;
 }
-const Comment = ({ username, userPhoto, commentText }: Props) => {
+const Comment = ({ username, userPhoto, commentText, createDate }: Props) => {
+  const date = Date.now() - Date.parse(createDate);
+  let dateText = "0s";
+  console.log(date);
+  // prettier-ignore
+  if(date>1000*60*60*24*7*4*12) dateText = `${Math.floor(date/1000*60*60*24*7*4*12)} y`;
+  else if(date>1000*60*60*24*7*4) dateText = `${Math.floor(date/1000*60*60*24*7*4)} m`;
+  else if(date>1000*60*60*24*7) dateText = `${Math.floor(date/1000*60*60*24*7)} w`;
+  else if(date>1000*60*60*24) dateText = `${Math.floor(date/1000*60*60*24)} d`;
+  else if(date>1000*60*60) dateText = `${Math.floor(date/1000*60*60)} m`;
+  else if(date>1000*60) dateText = `${Math.floor(date/1000*60)} s`;
+  //1000ms*60s*60m*24h*30d*12m*1y
   return (
     <div className="comment--container">
       <div className="comment--head">
@@ -14,6 +26,7 @@ const Comment = ({ username, userPhoto, commentText }: Props) => {
           className="comment--image"
         />
         <h4 className="comment--username">{username}</h4>
+        <h4 className="comment--createdate">{dateText}</h4>
       </div>
       <div>
         <p className="comment--comment">{commentText}</p>

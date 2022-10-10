@@ -19,14 +19,14 @@ const addToFavorites = async (
   const url = `${urlHelper.BASE_URL}${addRemove}/${id}`;
   // console.log(url);
   const response = await axios.patch(url, {}, setHeader(token));
-  // console.log(response);
+  //console.log(response);
   return response;
 };
 
 const getComments = async (id: string, token: string | undefined) => {
   const url = `${urlHelper.BASE_URL}comments/${id}`;
   const response = await axios.get(url, setHeader(token));
-  //  console.log(response);
+  //console.log(response);
   return response;
 };
 

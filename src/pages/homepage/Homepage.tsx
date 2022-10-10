@@ -10,7 +10,7 @@ function Homepage() {
   const [isRequesting, setIsRequesting] = useState(false);
   const [[pageNumber, pageMax], setPageNumber] = useState([1, 1]);
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
-  const [cards, setCards] = useState<JSX.Element[]>([]);
+  const [cards, setCards] = useState<ICocktailData[]>([]);
 
   useEffect(() => {
     setIsRequesting(true);
@@ -34,20 +34,7 @@ function Homepage() {
     else {
       setNoData(false);
       if (!ids.has(selectedCard) && selectedCard) setSelectedCard(null);
-      setCards(
-        cardsData.map((item: any) => {
-          return (
-            <Components.Card
-              key={item.drinkID}
-              {...item}
-              setCocktailData={setCocktailData}
-              setPageNumber={setPageNumber}
-              setSelectedCard={setSelectedCard}
-              selectedCard={selectedCard}
-            />
-          );
-        })
-      );
+      setCards(cardsData);
     }
   }, [cocktailData, pageNumber, selectedCard]);
 
@@ -66,7 +53,22 @@ function Homepage() {
         <Components.NoData setNoData={setNoData} />
       ) : null}
       <div className="card-container">
-        {isRequesting ? <Components.Loading /> : cards}
+        {isRequesting ? (
+          <Components.Loading />
+        ) : (
+          cards.map((item: any) => {
+            return (
+              <Components.Card
+                key={item.drinkID}
+                {...item}
+                setCocktailData={setCocktailData}
+                setPageNumber={setPageNumber}
+                setSelectedCard={setSelectedCard}
+                selectedCard={selectedCard}
+              />
+            );
+          })
+        )}
       </div>
       <div className="pagination--container">
         {isRequesting ? null : (

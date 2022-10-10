@@ -371,6 +371,12 @@ body {
   margin: 0;
 }
 
+.comment--createdate {
+  padding-left: 15px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.4);
+}
+
 .comment--comment {
   font-size: 0.9em;
   text-align: left;

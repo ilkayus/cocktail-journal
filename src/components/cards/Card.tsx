@@ -102,6 +102,7 @@ const Card = ({
               username={el.username}
               userPhoto={el.userPhoto ? el.userPhoto : undefined}
               commentText={el.commentText}
+              createDate={el.createDate}
             />
           );
         })
