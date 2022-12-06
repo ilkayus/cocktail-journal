@@ -1,9 +1,13 @@
 # Cocktail-Journal
 
+
+
 The site that helps you with refreshments on hot summer days  
 & hot summer nights also
 
 successor of cocktail doge
+
+currently not reachable cause of heroku backend closed.
 
 https://ilkayus.github.io/cocktail-journal/
 
