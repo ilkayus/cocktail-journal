@@ -1,5 +1,6 @@
-//const BASE_URL = "http://localhost:9000/api/v1/";
-const BASE_URL = "https://cocktail-journal-server.herokuapp.com/api/v1/";
+// const BASE_URL = "http://localhost:9000/api/v1/";
+const BASE_URL = "https://cocktail-journal-server-ilkayus.vercel.app/api/v1";
+// const BASE_URL = "https://cocktail-journal-server.herokuapp.com/api/v1/";
 // const BASE_URL =
 //   process.env.ENV === "development"
 //     ? "http://localhost:9000/api/v1/"
