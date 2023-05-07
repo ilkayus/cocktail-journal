@@ -7,12 +7,9 @@ The site that helps you with refreshments on hot summer days
 
 successor of cocktail doge
 
-currently not reachable cause of heroku backend closed.
-
 https://ilkayus.github.io/cocktail-journal/
 
 ---
 
 This project created with intent of practicing React.js and Node.js & MongoDB
 
-### Next goal is creating a mobile application with react native and proceed this public service to mobile devices
